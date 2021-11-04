@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'com.server'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(libs.spring.boot.starter)
+    testImplementation(libs.spring.boot.starter)
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
