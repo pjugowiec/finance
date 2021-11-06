@@ -1,2 +1,2 @@
 rootProject.name = 'application'
-include 'server'
+enableFeaturePreview('VERSION_CATALOGS')

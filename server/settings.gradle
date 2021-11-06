@@ -5,8 +5,28 @@ enableFeaturePreview('VERSION_CATALOGS')
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
-            version('spring', '2.5.6')
-            alias('spring-boot-starter').to('org.springframework.boot', 'spring-boot-starter').versionRef('spring')
+            version(Version.SPRING.name, Version.SPRING.value)
+            alias('spring-boot-starter').to(CommonValues.SPRING_BOOT_ADDRESS, 'spring-boot-starter').versionRef(Version.SPRING.name)
+            alias('spring-boot-starter-oauth2').to(CommonValues.SPRING_BOOT_ADDRESS, 'spring-boot-starter-oauth2-resource-server')
+                    .versionRef(Version.SPRING.name)
         }
     }
+}
+
+class VersionObj {
+    public String name
+    public String value
+
+    VersionObj(String name, String value) {
+        this.name = name
+        this.value = value
+    }
+}
+
+class Version {
+    static VersionObj SPRING = new VersionObj('spring', '2.5.6')
+}
+
+class CommonValues {
+    static String SPRING_BOOT_ADDRESS = 'org.springframework.boot'
 }
