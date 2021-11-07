@@ -1,3 +1,0 @@
-include 'server'
-
-enableFeaturePreview('VERSION_CATALOGS')
