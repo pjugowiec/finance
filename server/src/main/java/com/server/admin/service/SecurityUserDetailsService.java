@@ -3,16 +3,15 @@ package com.server.admin.service;
 import com.server.admin.entity.UserEntity;
 import com.server.admin.model.SecurityUserDetails;
 import com.server.admin.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
+
 public class SecurityUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;

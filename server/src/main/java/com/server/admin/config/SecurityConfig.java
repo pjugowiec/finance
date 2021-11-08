@@ -1,8 +1,10 @@
 package com.server.admin.config;
 
 import com.server.admin.config.filter.AuthenticationSuccessHandler;
+import com.server.admin.config.filter.JwtAuthorizationFilter;
 import com.server.admin.service.SecurityUserDetailsService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,10 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @EnableWebSecurity
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SecurityUserDetailsService userDetailsService;
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -28,11 +31,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http.cors()
+                .and()
+                .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/test")
+                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterAt(new AuthenticationSuccessHandler(authenticationManager()), BasicAuthenticationFilter.class)
+                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService))
                 .httpBasic()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
