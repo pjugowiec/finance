@@ -1,30 +1,42 @@
-
 plugins {
 	id 'org.springframework.boot' version '2.5.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
 
-group = 'com.server'
+group = 'com'
 version = '0.0.1'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 }
 
-subprojects {
-
-}
-
 dependencies {
-	implementation(libs.spring.boot.starter)
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: Versions.SPRING
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: Versions.SPRING
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: Versions.SPRING
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: Versions.SPRING
+	implementation group: 'com.auth0', name: 'java-jwt', version: Versions.JWT
+
+	implementation group: 'org.postgresql', name: 'postgresql', version: Versions.POSTGRES
+
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: Versions.LOMBOK
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: Versions.LOMBOK
+
+	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: Versions.SPRING
+	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: Versions.LOMBOK
+	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: Versions.LOMBOK
 }
 
 test {
 	useJUnitPlatform()
 }
 
-class Version {
 
+class Versions {
+	static String SPRING='2.5.6'
+	static String POSTGRES='42.2.20'
+	static String LOMBOK='1.18.20'
+	static String JWT='3.18.2'
 }

@@ -1,12 +1,1 @@
 rootProject.name = 'server'
-include 'admin', 'application'
-
-enableFeaturePreview('VERSION_CATALOGS')
-dependencyResolutionManagement {
-    versionCatalogs {
-        libs {
-            version('spring', '2.5.6')
-            alias('spring-boot-starter').to('org.springframework.boot', 'spring-boot-starter').versionRef('spring')
-        }
-    }
-}
