@@ -35,8 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/test")
-                .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterAt(new AuthenticationSuccessHandler(authenticationManager()), BasicAuthenticationFilter.class)
