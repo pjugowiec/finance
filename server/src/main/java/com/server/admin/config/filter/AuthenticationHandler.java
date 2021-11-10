@@ -18,10 +18,10 @@ import java.util.Date;
 import static com.server.admin.util.CommonValues.*;
 
 @Component
-public class AuthenticationSuccessHandler extends BasicAuthenticationFilter {
+public class AuthenticationHandler extends BasicAuthenticationFilter {
 
     @Autowired
-    public AuthenticationSuccessHandler(AuthenticationManager authenticationManager) {
+    public AuthenticationHandler(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
@@ -34,10 +34,5 @@ public class AuthenticationSuccessHandler extends BasicAuthenticationFilter {
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPERIENCE_TIME))
                 .sign(Algorithm.HMAC256(SECRET_KEY));
         response.addHeader(TOKEN_AUTHORIZATION, TOKEN_PREFIX + token);
-    }
-
-    @Override
-    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
-        super.onUnsuccessfulAuthentication(request, response, failed);
     }
 }

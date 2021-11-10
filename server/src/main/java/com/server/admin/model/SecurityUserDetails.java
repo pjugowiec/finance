@@ -11,8 +11,6 @@ import java.util.Collection;
 
 import static java.util.List.of;
 
-@RequiredArgsConstructor
-@Builder
 public class SecurityUserDetails implements UserDetails {
 
     private static final String ROLE_PREFIX = "ROLE_";

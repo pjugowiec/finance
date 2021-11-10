@@ -9,18 +9,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import static com.server.admin.util.AdminErrorsMessages.USER_NOT_FOUND;
+
 @Component
 @AllArgsConstructor
-
 public class SecurityUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        // todo
         final UserEntity userEntity = userRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("Nie ma takiego usera"));
+                .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND.name()));
         return new SecurityUserDetails(userEntity);
     }
 }

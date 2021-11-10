@@ -1,15 +1,14 @@
 package com.server.admin.entity;
 
-import com.server.admin.model.Role;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity(name = "_adm_users")
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class UserEntity {
 
     @Id

@@ -1,11 +1,11 @@
 package com.server.admin.config;
 
-import com.server.admin.config.filter.AuthenticationSuccessHandler;
+import com.server.admin.config.filter.AuthenticationHandler;
 import com.server.admin.config.filter.JwtAuthorizationFilter;
 import com.server.admin.service.SecurityUserDetailsService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity
 @AllArgsConstructor
@@ -35,9 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers(POST, "/register")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterAt(new AuthenticationSuccessHandler(authenticationManager()), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthenticationHandler(authenticationManager()), BasicAuthenticationFilter.class)
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService))
                 .httpBasic()
                 .and()
