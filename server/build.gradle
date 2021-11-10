@@ -27,6 +27,9 @@ dependencies {
 	testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: Versions.SPRING
 	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: Versions.LOMBOK
 	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: Versions.LOMBOK
+	testImplementation group: 'io.rest-assured', name: 'rest-assured', version: Versions.REST_ASSURE
+	testImplementation group: 'org.testcontainers', name: 'postgresql', version: Versions.TEST_CONTAINERS
+
 }
 
 test {
@@ -39,4 +42,7 @@ class Versions {
 	static String POSTGRES='42.2.20'
 	static String LOMBOK='1.18.20'
 	static String JWT='3.18.2'
+	static String REST_ASSURE='4.4.0'
+	static String TEST_CONTAINERS='1.15.3'
+
 }

@@ -1,10 +1,9 @@
 package com.server.admin.config;
 
-import com.server.admin.config.filter.AuthenticationSuccessHandler;
+import com.server.admin.config.filter.AuthenticationHandler;
 import com.server.admin.config.filter.JwtAuthorizationFilter;
 import com.server.admin.service.SecurityUserDetailsService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterAt(new AuthenticationSuccessHandler(authenticationManager()), BasicAuthenticationFilter.class)
+                .addFilterAt(new AuthenticationHandler(authenticationManager()), BasicAuthenticationFilter.class)
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userDetailsService))
                 .httpBasic()
                 .and()

@@ -3,7 +3,6 @@ package com.server.admin.service;
 import com.server.admin.entity.UserEntity;
 import com.server.admin.model.SecurityUserDetails;
 import com.server.admin.repository.UserRepository;
-import com.server.admin.util.AdminErrorsMessages;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

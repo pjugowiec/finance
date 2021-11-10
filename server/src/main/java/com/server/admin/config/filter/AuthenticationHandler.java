@@ -18,10 +18,10 @@ import java.util.Date;
 import static com.server.admin.util.CommonValues.*;
 
 @Component
-public class AuthenticationSuccessHandler extends BasicAuthenticationFilter {
+public class AuthenticationHandler extends BasicAuthenticationFilter {
 
     @Autowired
-    public AuthenticationSuccessHandler(AuthenticationManager authenticationManager) {
+    public AuthenticationHandler(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
