@@ -35,9 +35,4 @@ public class AuthenticationHandler extends BasicAuthenticationFilter {
                 .sign(Algorithm.HMAC256(SECRET_KEY));
         response.addHeader(TOKEN_AUTHORIZATION, TOKEN_PREFIX + token);
     }
-
-    @Override
-    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
-        super.onUnsuccessfulAuthentication(request, response, failed);
-    }
 }

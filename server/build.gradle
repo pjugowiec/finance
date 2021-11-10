@@ -17,6 +17,7 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: Versions.SPRING
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: Versions.SPRING
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: Versions.SPRING
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: Versions.SPRING
 	implementation group: 'com.auth0', name: 'java-jwt', version: Versions.JWT
 
 	implementation group: 'org.postgresql', name: 'postgresql', version: Versions.POSTGRES

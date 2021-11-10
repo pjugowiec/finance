@@ -1,11 +1,10 @@
 package com.server.unit.admin.serivce;
 
 import com.server.admin.entity.UserEntity;
-import com.server.admin.model.Role;
+import com.server.admin.entity.Role;
 import com.server.admin.repository.UserRepository;
 import com.server.admin.service.SecurityUserDetailsService;
 import com.server.admin.util.AdminErrorsMessages;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,10 +1,14 @@
 package com.server.integration.admin.security;
 
 import annotation.SqlSecurity;
-import com.server.helpers.template.RequestTemplate;
+import com.server.helpers.RequestConfig;
 import io.restassured.http.Header;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.Optional;
 
@@ -15,7 +19,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SqlSecurity
-class JwtTokenTest extends RequestTemplate {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class JwtTokenTest {
+
+    @LocalServerPort
+    protected Integer port;
+
+    protected RequestSpecification requestSpecification;
+
+    @BeforeEach
+    void init() {
+        requestSpecification = RequestConfig.createBasicRequestSpecification(port);
+    }
 
     @Test
     void generateJwtToken_ShouldLoginAndReturnJwtToken() {
