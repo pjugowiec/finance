@@ -4,8 +4,10 @@ import annotation.SqlBalance;
 import com.server.balance.entity.BalanceFlow;
 import com.server.balance.entity.BalanceTransactionEntity;
 import com.server.balance.model.Balance;
+import com.server.balance.model.BalanceSummary;
 import com.server.balance.repostiory.BalanceTransactionRepository;
 import com.server.helpers.RequestConfig;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,5 +60,21 @@ class BalanceControllerTest {
         assertEquals(balance.balanceFlow(), entity.getBalanceFlow());
         assertEquals(balance.description(), entity.getDescription());
         assertNotNull(entity.getCreated());
+    }
+
+    @Test
+    void getSummary_ShouldReturnSummary() {
+
+        final Response response = given(requestSpecification)
+                .get("/balance")
+                .andReturn();
+
+        assertEquals(200, response.getStatusCode());
+
+        final BalanceSummary summary = response.getBody().as(BalanceSummary.class);
+
+        assertEquals(new BigDecimal("500.23"), summary.income());
+        assertEquals(new BigDecimal("400.00"), summary.expenses());
+        assertEquals(new BigDecimal("900.23"), summary.balance());
     }
 }

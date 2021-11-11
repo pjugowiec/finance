@@ -4,6 +4,7 @@ import com.server.admin.service.SecurityUserDetailsService;
 import com.server.balance.entity.BalanceTransactionEntity;
 import com.server.balance.entity.CategoryEntity;
 import com.server.balance.model.Balance;
+import com.server.balance.model.BalanceSummary;
 import com.server.balance.repostiory.BalanceTransactionRepository;
 import com.server.balance.repostiory.CategoryRepository;
 import com.server.balance.repostiory.CurrencyRepository;
@@ -44,5 +45,10 @@ public class BalanceServiceImpl implements BalanceService {
         balanceTransactionRepository.save(entity);
 
         return balance;
+    }
+
+    @Override
+    public BalanceSummary getSummary(final String username) {
+        return balanceTransactionRepository.getSummary(username);
     }
 }

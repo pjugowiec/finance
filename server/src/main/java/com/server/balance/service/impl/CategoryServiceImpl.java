@@ -4,7 +4,6 @@ import com.server.balance.model.Category;
 import com.server.balance.repostiory.CategoryRepository;
 import com.server.balance.service.CategoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
