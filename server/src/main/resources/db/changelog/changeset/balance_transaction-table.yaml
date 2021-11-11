@@ -18,7 +18,7 @@ databaseChangeLog:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
+                  valueComputed: balance_transaction_seq.NEXTVAL
                   constraints:
                     primaryKey: true
                     nullable: false
@@ -31,24 +31,22 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: category_id
-                  type: bigint
+                  name: balance_flow
+                  type: varchar(50)
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_category_balance_transactions
-                    references: dictionaries(id)
-              - column:
-                  name: balance_flow_id
-                  type: bigint
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_balance_flow_balance_transactions
-                    references: dictionaries(id)
               - column:
                   name: created
                   type: date
                   constraints:
                       nullable: false
+              - column:
+                  name: category_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_category_balance_transactions
+                    references: categories(id)
               - column:
                   name: currency_id
                   type: bigint

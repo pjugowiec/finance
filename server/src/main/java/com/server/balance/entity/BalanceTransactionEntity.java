@@ -1,8 +1,7 @@
 package com.server.balance.entity;
 
 import com.server.admin.entity.UserEntity;
-import com.server.shared.exceptions.entity.BalanceFlowDictionaryEntity;
-import com.server.shared.exceptions.entity.CategoryDictionaryEntity;
+import com.server.shared.entity.CurrencyEntity;
 import org.hibernate.type.DateType;
 
 import javax.persistence.*;
@@ -23,16 +22,20 @@ public class BalanceTransactionEntity {
     @Column
     private Long balance;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private CategoryDictionaryEntity categoryDictionaryEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "balance_flow_id", nullable = false)
-    private BalanceFlowDictionaryEntity balanceFlowDictionaryEntity;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "balance_flow")
+    private BalanceFlow balanceFlow;
 
     @Column(name = "created", nullable = false)
     private DateType created;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity categoryEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "currency_id", nullable = false)
+    private CurrencyEntity currencyEntity;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

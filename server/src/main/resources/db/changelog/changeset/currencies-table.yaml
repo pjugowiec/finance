@@ -3,22 +3,12 @@ databaseChangeLog:
       id: create-currencies-table
       author: Patryk Jugowiec
       changes:
-        - createSequence:
-            catalogName: seq
-            cycle: true
-            incrementBy: 1
-            maxValue: 10000
-            minValue: 1
-            schemaName: public
-            sequenceName: currencies_seq
-            startValue: 1
         - createTable:
             tableName: currencies
             columns:
               - column:
                   name: id
                   type: bigint
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false

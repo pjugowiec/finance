@@ -1,10 +1,13 @@
 package com.server.admin.entity;
 
 import com.server.balance.entity.BalanceTransactionEntity;
-import lombok.*;
+import com.server.balance.entity.CategoryEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
 import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -17,8 +20,8 @@ import static javax.persistence.GenerationType.SEQUENCE;
 public class UserEntity {
 
     @Id
-    @SequenceGenerator(name = "USER_SEQ", sequenceName = "USER_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = SEQUENCE, generator = "USER_SEQ")
+    @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
+    @GeneratedValue(strategy = SEQUENCE, generator = "user_seq")
     private Long id;
 
     @Column(name = "email", unique = true, nullable = false, length = 80)
@@ -30,8 +33,18 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public static UserEntity of(final Long id, final String email, final String password, final Role role) {
+        return UserEntity.builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .role(role)
+                .build();
+    }
+
     @OneToMany(mappedBy = "userEntity")
     private Set<BalanceTransactionEntity> balanceTransactionEntitySet;
 
-
+    @OneToMany(mappedBy = "userEntity")
+    private Set<CategoryEntity> categoryEntities;
 }
