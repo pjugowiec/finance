@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user-table
+      author: Patryk Jugowiec
+      changes:
+        - createSequence:
+            catalogName: seq
+            cycle: true
+            incrementBy: 1
+            maxValue: 100000
+            minValue: 1
+            schemaName: public
+            sequenceName: user_seq
+            startValue: 1
+        - createTable:
+            tableName: "_adm_users"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(80)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+                  defaultValue: USER
+                  constraints:
+                    nullable: false
