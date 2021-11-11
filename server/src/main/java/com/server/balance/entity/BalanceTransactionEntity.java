@@ -2,13 +2,25 @@ package com.server.balance.entity;
 
 import com.server.admin.entity.UserEntity;
 import com.server.shared.entity.CurrencyEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.type.DateType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity(name = "balance_transactions")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 public class BalanceTransactionEntity {
 
     @Id
@@ -20,14 +32,14 @@ public class BalanceTransactionEntity {
     private String description;
 
     @Column
-    private Long balance;
+    private BigDecimal balance;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "balance_flow")
     private BalanceFlow balanceFlow;
 
     @Column(name = "created", nullable = false)
-    private DateType created;
+    private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

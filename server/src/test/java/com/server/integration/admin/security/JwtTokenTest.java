@@ -51,4 +51,30 @@ class JwtTokenTest {
         assertTrue(JWT_TOKEN.isPresent());
         assertTrue(JWT_TOKEN.get().getValue().startsWith(TOKEN_PREFIX));
     }
+
+    @Test
+    void checkJwtToken_ShouldAcceptRequest() {
+        Response response = given(requestSpecification)
+                .auth()
+                .basic("test@test", "test")
+                .post("/login")
+                .andReturn();
+
+
+        assertEquals(200, response.getStatusCode());
+        final String JWT_TOKEN = response.getHeaders().asList()
+                .stream()
+                .filter(v -> TOKEN_AUTHORIZATION.equals(v.getName()))
+                .findAny()
+                .get()
+                .getValue();
+
+        //TODO change endpoint
+        requestSpecification
+                .header(TOKEN_AUTHORIZATION, JWT_TOKEN)
+                .get("/category")
+                .then()
+                .assertThat()
+                .statusCode(200);
+    }
 }

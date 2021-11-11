@@ -27,7 +27,7 @@ databaseChangeLog:
                   type: varchar(500)
               - column:
                   name: balance
-                  type: bigint
+                  type: numeric(20, 2)
                   constraints:
                     nullable: false
               - column:
@@ -37,7 +37,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: created
-                  type: date
+                  type: timestamp
                   constraints:
                       nullable: false
               - column:
