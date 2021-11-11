@@ -1,8 +1,11 @@
 package com.server.admin.entity;
 
+import com.server.balance.entity.BalanceTransactionEntity;
 import lombok.*;
 
 import javax.persistence.*;
+
+import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -26,6 +29,9 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(mappedBy = "userEntity")
+    private Set<BalanceTransactionEntity> balanceTransactionEntitySet;
 
 
 }

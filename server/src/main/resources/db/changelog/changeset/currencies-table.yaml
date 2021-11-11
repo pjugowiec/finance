@@ -1,19 +1,19 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-table
+      id: create-currencies-table
       author: Patryk Jugowiec
       changes:
         - createSequence:
             catalogName: seq
             cycle: true
             incrementBy: 1
-            maxValue: 1000000
+            maxValue: 10000
             minValue: 1
             schemaName: public
-            sequenceName: user_seq
+            sequenceName: currencies_seq
             startValue: 1
         - createTable:
-            tableName: _adm_users
+            tableName: currencies
             columns:
               - column:
                   name: id
@@ -23,19 +23,12 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: email
-                  type: varchar(80)
+                  name: short_name
+                  type: varchar(40)
                   constraints:
-                    unique: true
                     nullable: false
               - column:
-                  name: password
+                  name: name
                   type: varchar(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: role
-                  type: varchar(50)
-                  defaultValue: USER
                   constraints:
                     nullable: false

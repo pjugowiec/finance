@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-dictionary-table
+      author: Patryk Jugowiec
+      changes:
+        - createSequence:
+            catalogName: seq
+            cycle: true
+            incrementBy: 1
+            maxValue: 1000000
+            minValue: 1
+            schemaName: public
+            sequenceName: dictionary_seq
+            startValue: 1
+        - createTable:
+              tableName: dictionaries
+              columns:
+                  - column:
+                        name: type
+                        type: varchar(50)
+                        constraints:
+                            nullable: false
+                  - column:
+                        name: id
+                        type: bigint
+                        autoIncrement: true
+                        constraints:
+                            primaryKey: true
+                            nullable: false
+                  - column:
+                        name: value
+                        type: varchar(255)
+                        constraints:
+                            nullable: false
+
