@@ -19,6 +19,7 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: Versions.SPRING
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: Versions.SPRING
 	implementation group: 'com.auth0', name: 'java-jwt', version: Versions.JWT
+	implementation group: 'org.liquibase', name: 'liquibase-core', version: Versions.LIQUID_BASE
 
 	implementation group: 'org.postgresql', name: 'postgresql', version: Versions.POSTGRES
 
@@ -45,5 +46,6 @@ class Versions {
 	static String JWT='3.18.2'
 	static String REST_ASSURE='4.4.0'
 	static String TEST_CONTAINERS='1.15.3'
+	static String LIQUID_BASE='4.6.1'
 
 }
