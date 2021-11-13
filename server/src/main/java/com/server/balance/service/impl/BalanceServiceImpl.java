@@ -5,6 +5,8 @@ import com.server.balance.entity.BalanceTransactionEntity;
 import com.server.balance.entity.CategoryEntity;
 import com.server.balance.model.Balance;
 import com.server.balance.model.BalanceSummary;
+import com.server.balance.model.Transaction;
+import com.server.balance.model.TransactionRequest;
 import com.server.balance.repostiory.BalanceTransactionRepository;
 import com.server.balance.repostiory.CategoryRepository;
 import com.server.balance.repostiory.CurrencyRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -50,5 +53,10 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public BalanceSummary getSummary(final String username) {
         return balanceTransactionRepository.getSummary(username);
+    }
+
+    @Override
+    public List<Transaction> getTranslations(TransactionRequest transactionRequest, String username) {
+        return balanceTransactionRepository.getTranslations(transactionRequest.from(), transactionRequest.to(), username);
     }
 }
