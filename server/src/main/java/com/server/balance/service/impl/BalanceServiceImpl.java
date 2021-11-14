@@ -12,7 +12,12 @@ import com.server.balance.repostiory.CategoryRepository;
 import com.server.balance.repostiory.CurrencyRepository;
 import com.server.balance.service.BalanceService;
 import com.server.shared.entity.CurrencyEntity;
+import com.server.shared.exceptions.ValidationException;
+import com.server.shared.util.CommonErrorMessage;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +62,16 @@ public class BalanceServiceImpl implements BalanceService {
 
     @Override
     public List<Transaction> getTranslations(TransactionRequest transactionRequest, String username) {
-        return balanceTransactionRepository.getTranslations(transactionRequest.from(), transactionRequest.to(), username);
+        Pageable page = PageRequest.of(0, transactionRequest.count());
+
+        return balanceTransactionRepository.getTranslations(transactionRequest.from(), transactionRequest.to(), username, page);
+    }
+
+    @Override
+    public void deleteTransaction(Long id) {
+        if(!balanceTransactionRepository.existsById(id)) {
+            throw new ValidationException(CommonErrorMessage.NOT_FOUND.name());
+        }
+        balanceTransactionRepository.deleteById(id);
     }
 }

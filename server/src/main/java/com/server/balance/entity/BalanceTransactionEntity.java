@@ -6,12 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.type.DateType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.SEQUENCE;

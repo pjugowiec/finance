@@ -14,4 +14,6 @@ public interface BalanceService {
     BalanceSummary getSummary(final String username);
 
     List<Transaction> getTranslations(final TransactionRequest transactionRequest, final String username);
+
+    void deleteTransaction(final Long id);
 }

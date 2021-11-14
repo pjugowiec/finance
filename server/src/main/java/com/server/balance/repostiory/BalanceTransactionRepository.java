@@ -3,6 +3,7 @@ package com.server.balance.repostiory;
 import com.server.balance.entity.BalanceTransactionEntity;
 import com.server.balance.model.BalanceSummary;
 import com.server.balance.model.Transaction;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,6 +26,7 @@ public interface BalanceTransactionRepository extends JpaRepository<BalanceTrans
 
 
     @Query(value = "SELECT new com.server.balance.model.Transaction(" +
+            "e.id," +
             "e.description," +
             "c.value," +
             "e.balance," +
@@ -36,5 +38,6 @@ public interface BalanceTransactionRepository extends JpaRepository<BalanceTrans
             "AND u.email = :username")
     List<Transaction> getTranslations(@Param("from")final LocalDateTime from,
                                       @Param("to")final LocalDateTime to,
-                                      @Param("username")final String username);
+                                      @Param("username")final String username,
+                                      Pageable page);
 }

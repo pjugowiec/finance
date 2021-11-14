@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import static com.server.helpers.RequestConfig.PASSWORD_USER_1;
 import static com.server.helpers.RequestConfig.USERNAME_USER_1;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -76,5 +77,30 @@ class BalanceControllerTest {
         assertEquals(new BigDecimal("500.23"), summary.income());
         assertEquals(new BigDecimal("400.00"), summary.expenses());
         assertEquals(new BigDecimal("900.23"), summary.balance());
+    }
+
+    @Test
+    void getTransactions_ShouldReturnTransactionsByRange() {
+
+        given(requestSpecification)
+                .param("from", "2021-11-11T10:29:10")
+                .param("to", "2021-11-11T10:30:40")
+                .param("count", 10)
+                .get("/balance/transactions")
+                .then()
+                .statusCode(200)
+                .body("$.size()", is(1));
+    }
+
+    @Test
+    void deleteTransaction_ShouldDeleteRecord() {
+        final long count = balanceTransactionRepository.count();
+
+        given(requestSpecification)
+                .delete("/balance/transactions/{id}", 1000L)
+                .then()
+                .statusCode(204);
+
+        assertEquals(count - 1, balanceTransactionRepository.count());
     }
 }
