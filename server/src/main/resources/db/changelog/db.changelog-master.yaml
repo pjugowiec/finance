@@ -1,3 +1,9 @@
 databaseChangeLog:
   - include:
       file: db/changelog/changeset/user-table.yaml
+  - include:
+      file: db/changelog/changeset/currencies-table.yaml
+  - include:
+      file: db/changelog/changeset/categories-table.yaml
+  - include:
+      file: db/changelog/changeset/balance_transaction-table.yaml

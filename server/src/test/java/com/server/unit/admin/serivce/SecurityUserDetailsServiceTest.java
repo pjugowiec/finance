@@ -42,7 +42,7 @@ class SecurityUserDetailsServiceTest {
     void loadUserByUsername_UserExists_ShouldReturnUser() {
         final String email = "EXISTS@EXISTS";
         Mockito.when(userRepository.findByEmail(email))
-                .thenReturn(java.util.Optional.of(new UserEntity(1L, email, "1234", Role.ADMIN)));
+                .thenReturn(java.util.Optional.of(UserEntity.of(1L, email, "1234", Role.ADMIN)));
 
         UserDetails userDetails = securityUserDetailsService.loadUserByUsername(email);
 

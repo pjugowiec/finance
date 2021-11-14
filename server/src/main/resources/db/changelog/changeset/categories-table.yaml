@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-user-table
+      id: create-categories-table
       author: Patryk Jugowiec
       changes:
         - createSequence:
@@ -10,32 +10,36 @@ databaseChangeLog:
             maxValue: 1000000
             minValue: 1
             schemaName: public
-            sequenceName: user_seq
+            sequenceName: categories_seq
             startValue: 1
         - createTable:
-            tableName: _adm_users
+            tableName: categories
             columns:
               - column:
                   name: id
                   type: bigint
-                  valueComputed: user_seq.NEXTVAL
+                  valueComputed: categories_seq.NEXTVAL
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: email
-                  type: varchar(80)
-                  constraints:
-                    unique: true
-                    nullable: false
-              - column:
-                  name: password
+                  name: value
                   type: varchar(255)
                   constraints:
                     nullable: false
               - column:
-                  name: role
-                  type: varchar(50)
-                  defaultValue: USER
+                  name: from
+                  type: date
                   constraints:
                     nullable: false
+              - column:
+                  name: to
+                  type: date
+                  constraints:
+                    nullable: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_user_balance_transactions
+                    references: _adm_users(id)
