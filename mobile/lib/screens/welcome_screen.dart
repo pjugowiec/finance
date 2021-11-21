@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/navigation.dart';
 import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/constants.dart';
+
+import 'auth/login.dart';
+import 'auth/register.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
         height: size.height,
@@ -23,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Container(
                   margin:
-                  const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
+                      const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
                   child: Image.asset(
                     "assets/images/welcome_screen.png",
                     width: size.width * 0.8,
@@ -42,7 +44,7 @@ class WelcomeScreen extends StatelessWidget {
                     )),
                 Container(
                   margin:
-                  const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+                      const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
                   child: const Text(
                       "Track your transaction easily, with categories and financial report",
                       textAlign: TextAlign.center,
@@ -51,20 +53,21 @@ class WelcomeScreen extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w400)),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(
-                        top: 80.0, left: 20.0, right: 20.0),
-                    child: RoundedButton(
-                      text: "Sign Up",
-                      color: PRIMARY_COLOR,
-                      press: () => null,
-                      textColor: Colors.white,
-                    ),
+                  margin:
+                      const EdgeInsets.only(top: 80.0, left: 20.0, right: 20.0),
+                  child: RoundedButton(
+                    text: "Register",
+                    color: PRIMARY_COLOR,
+                    press: () =>
+                        NavigationUtil.pushToNavigator(context, const Register()),
+                    textColor: Colors.white,
+                  ),
                 ),
                 RoundedButton(
-                    text: "Sign in",
-                    press: () => null,
+                    text: "Login",
+                    press: () => NavigationUtil.pushToNavigator(context, const Login()),
                     color: SECONDARY_COLOR,
-                    textColor: Colors.black)
+                    textColor: Colors.black),
               ],
             ),
           ],

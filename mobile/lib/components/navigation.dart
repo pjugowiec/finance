@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/constants.dart';
 
+import '../main.dart';
+
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
 
@@ -13,12 +15,11 @@ class Navigation extends StatefulWidget {
 class NavigationState extends State<Navigation> {
   bool clickedCentreFAB = false;
   int selectedIndex = 0;
-  String text = "Home";
 
-  void updateTabSelection(int index, String buttonText) {
+  void updateTabSelection(int index, Widget widget) {
     setState(() {
       selectedIndex = index;
-      text = buttonText;
+      NavigationUtil.pushToNavigator(context, widget);
     });
   }
 
@@ -34,15 +35,21 @@ class NavigationState extends State<Navigation> {
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 250),
+              duration: const Duration(milliseconds: 250),
               //if clickedCentreFAB == true, the first parameter is used. If it's false, the second.
               height:
-                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
+              clickedCentreFAB ? MediaQuery
+                  .of(context)
+                  .size
+                  .height : 10.0,
               width:
-                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
+              clickedCentreFAB ? MediaQuery
+                  .of(context)
+                  .size
+                  .height : 10.0,
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
+                BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -79,7 +86,7 @@ class NavigationState extends State<Navigation> {
             children: <Widget>[
               IconButton(
                 onPressed: () {
-                  updateTabSelection(0, "Home");
+                  updateTabSelection(0, const Home());
                 },
                 iconSize: 27.0,
                 icon: Icon(
@@ -89,7 +96,7 @@ class NavigationState extends State<Navigation> {
               ),
               IconButton(
                 onPressed: () {
-                  updateTabSelection(1, "Outgoing");
+                  updateTabSelection(1, const Home());
                 },
                 iconSize: 27.0,
                 icon: Icon(
@@ -102,7 +109,7 @@ class NavigationState extends State<Navigation> {
               ),
               IconButton(
                 onPressed: () {
-                  updateTabSelection(2, "Incoming");
+                  updateTabSelection(2, const Home());
                 },
                 iconSize: 27.0,
                 icon: Icon(
@@ -112,7 +119,7 @@ class NavigationState extends State<Navigation> {
               ),
               IconButton(
                 onPressed: () {
-                  updateTabSelection(3, "Settings");
+                  updateTabSelection(3, const Home());
                 },
                 iconSize: 27.0,
                 icon: Icon(
@@ -125,6 +132,18 @@ class NavigationState extends State<Navigation> {
         ),
         shape: const CircularNotchedRectangle(),
         color: Colors.white,
+      ),
+    );
+  }
+}
+
+class NavigationUtil {
+
+  static void pushToNavigator(BuildContext context, Widget widget) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => widget,
       ),
     );
   }
