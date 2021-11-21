@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/constants.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class NavigationState extends State<Navigation> {
   }
 
   Color getShade(int index) {
-    return selectedIndex == index ? Colors.blue.shade900 : Colors.grey.shade400;
+    return selectedIndex == index ? PRIMARY_COLOR : ICON_UNUSED_COLOR;
   }
 
   @override
@@ -36,14 +37,23 @@ class NavigationState extends State<Navigation> {
               duration: Duration(milliseconds: 250),
               //if clickedCentreFAB == true, the first parameter is used. If it's false, the second.
               height:
-              clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
-              width: clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
+                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
+              width:
+                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
               decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
-                  color: Colors.grey.shade300),
+                borderRadius:
+                    BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    PRIMARY_COLOR,
+                    SECONDARY_COLOR
+                  ],
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -58,6 +68,7 @@ class NavigationState extends State<Navigation> {
           child: const Icon(Icons.add),
         ),
         elevation: 4.0,
+        backgroundColor: PRIMARY_COLOR,
       ),
       bottomNavigationBar: BottomAppBar(
         child: Container(
