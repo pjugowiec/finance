@@ -5,9 +5,12 @@ import '../constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
+  final TextEditingController controller;
+
   const RoundedPasswordField({
     Key? key,
     required this.onChanged,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -15,6 +18,7 @@ class RoundedPasswordField extends StatelessWidget {
     return TextFieldContainer(
       color: SECONDARY_COLOR,
       child: TextField(
+        controller: controller,
         obscureText: true,
         onChanged: onChanged,
         cursorColor: PRIMARY_COLOR,
