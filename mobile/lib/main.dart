@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobile/screens/welcome_screen.dart';
 import 'package:mobile/services/auth/auth_service.dart';
+import 'package:mobile/util/app_localizations.dart';
 
 import 'components/navigation.dart';
 
 main() {
-  runApp(const MaterialApp(home: Home()));
+  runApp(const MaterialApp(
+      supportedLocales: [
+        Locale('pl','PL'),
+        Locale('en', 'US'),
+      ],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      home: Home()));
 }
 
 class Home extends StatefulWidget {

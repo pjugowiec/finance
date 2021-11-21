@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/constants.dart';
+import 'package:mobile/util/app_localizations.dart';
 
 import 'auth/login.dart';
 import 'auth/register.dart';
@@ -34,29 +35,29 @@ class WelcomeScreen extends StatelessWidget {
                 Container(
                     margin: const EdgeInsets.only(
                         top: 40.0, left: 20.0, right: 20.0),
-                    child: const Text(
-                      "Gain total control of your money",
+                    child: Text(
+                      AppLocalizations.of(context)!.translate("FIRST_WELCOME"),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 32.0),
                     )),
                 Container(
                   margin:
                       const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-                  child: const Text(
-                      "Track your transaction easily, with categories and financial report",
+                  child: Text(
+                      AppLocalizations.of(context)!.translate("SECOND_WELCOME"),
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 3,
-                      style: TextStyle(fontWeight: FontWeight.w400)),
+                      style: const TextStyle(fontWeight: FontWeight.w400)),
                 ),
                 Container(
                   margin:
                       const EdgeInsets.only(top: 80.0, left: 20.0, right: 20.0),
                   child: RoundedButton(
-                    text: "Register",
+                    text: AppLocalizations.of(context)!.translate("REGISTER"),
                     color: PRIMARY_COLOR,
                     press: () =>
                         NavigationUtil.pushToNavigator(context, const Register()),
@@ -64,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 RoundedButton(
-                    text: "Login",
+                    text: AppLocalizations.of(context)!.translate("LOGIN"),
                     press: () => NavigationUtil.pushToNavigator(context, const Login()),
                     color: SECONDARY_COLOR,
                     textColor: Colors.black),
