@@ -53,9 +53,10 @@ class _RegisterState extends State<Register> {
             margin: const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
             child: RoundedButton(
                 text: "Register",
-                press: () => AuthService().registerUser(
+                press: () => AuthService.instance.registerUser(
                     _emailController.value.text,
-                    _passwordController.value.text),
+                    _passwordController.value.text,
+                    context),
                 color: PRIMARY_COLOR,
                 textColor: Colors.white),
           ),

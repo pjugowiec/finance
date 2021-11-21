@@ -139,9 +139,9 @@ class NavigationState extends State<Navigation> {
 
 class NavigationUtil {
 
-  static void pushToNavigator(BuildContext context, Widget widget) {
+  static void pushToNavigator(BuildContext ?context, Widget widget) {
     Navigator.push(
-      context,
+      context!,
       MaterialPageRoute(
         builder: (context) => widget,
       ),

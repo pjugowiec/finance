@@ -4,6 +4,7 @@ import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/components/rounded_input.dart';
 import 'package:mobile/components/rounded_password_field.dart';
 import 'package:mobile/screens/auth/register.dart';
+import 'package:mobile/services/auth/auth_service.dart';
 
 import '../../constants.dart';
 
@@ -64,7 +65,10 @@ class _LoginState extends State<Login> {
             margin: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
             child: RoundedButton(
                 text: "Login",
-                press: () => null, // todo serwis do logowania
+                press: () => AuthService.instance.login(
+                    _emailController.value.text,
+                    _passwordController.value.text,
+                    context),
                 color: PRIMARY_COLOR,
                 textColor: Colors.white),
           ),
@@ -92,5 +96,4 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
 }
