@@ -38,25 +38,16 @@ class NavigationState extends State<Navigation> {
               duration: const Duration(milliseconds: 250),
               //if clickedCentreFAB == true, the first parameter is used. If it's false, the second.
               height:
-              clickedCentreFAB ? MediaQuery
-                  .of(context)
-                  .size
-                  .height : 10.0,
+                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
               width:
-              clickedCentreFAB ? MediaQuery
-                  .of(context)
-                  .size
-                  .height : 10.0,
+                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
               decoration: BoxDecoration(
                 borderRadius:
-                BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
+                    BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
                 gradient: const LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: <Color>[
-                    PRIMARY_COLOR,
-                    SECONDARY_COLOR
-                  ],
+                  colors: <Color>[PRIMARY_COLOR, SECONDARY_COLOR],
                 ),
               ),
             ),
@@ -72,7 +63,9 @@ class NavigationState extends State<Navigation> {
         },
         child: Container(
           margin: const EdgeInsets.all(15.0),
-          child: const Icon(Icons.add),
+          child: clickedCentreFAB
+              ? const Icon(Icons.close)
+              : const Icon(Icons.add),
         ),
         elevation: 4.0,
         backgroundColor: PRIMARY_COLOR,
@@ -138,8 +131,7 @@ class NavigationState extends State<Navigation> {
 }
 
 class NavigationUtil {
-
-  static void pushToNavigator(BuildContext ?context, Widget widget) {
+  static void pushToNavigator(BuildContext? context, Widget widget) {
     Navigator.push(
       context!,
       MaterialPageRoute(
