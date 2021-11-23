@@ -5,6 +5,7 @@ import 'package:mobile/screens/balance/balance_screen.dart';
 import 'package:mobile/screens/welcome_screen.dart';
 import 'package:mobile/services/auth/auth_service.dart';
 
+import 'components/navigation.dart';
 import 'util/localization.dart';
 
 main() => runApp(const Home());
@@ -44,7 +45,7 @@ class HomeState extends State<Home> {
         home: I18n(
           initialLocale: EN_LOCALE,
           child: Scaffold(
-            body: true ? const Balance() : const WelcomeScreen(),
+            body: true ? Balance() : WelcomeScreen(),
           ),
         ));
   }

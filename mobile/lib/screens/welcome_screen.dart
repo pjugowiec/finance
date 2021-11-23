@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:i18n_extension/i18n_widget.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/constants.dart';
@@ -9,7 +8,6 @@ import 'auth/login.dart';
 import 'auth/register.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
