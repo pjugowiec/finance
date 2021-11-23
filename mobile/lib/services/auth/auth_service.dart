@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/model/auth/register_user.dart';
 import 'package:mobile/util/alert_util.dart';
+import 'package:mobile/util/localization.dart';
 
 import 'package:mobile/util/request_util.dart';
 
@@ -46,6 +47,12 @@ class AuthService {
   }
 
   Future login(String email, String password, BuildContext context) async {
+    if(email.isEmpty || password.isEmpty || password.length < 8) {
+      AlertUtil.instance.newInfoAlert(
+          "WRONG_CREDENTIALS".i18n, context, const Duration(seconds: 2));
+      return;
+    }
+
     Map<String, String> headers = {
       "Authorization": 'Basic ' + base64Encode('$email:$password'.codeUnits)
     };
@@ -62,11 +69,11 @@ class AuthService {
           NavigationUtil.pushToNavigator(context, const Home());
         } else {
           AlertUtil.instance.newInfoAlert(
-              "Problem with connection", context, const Duration(seconds: 2));
+              "CONNECTION_PROBLEM".i18n, context, const Duration(seconds: 2));
         }
       } else {
         AlertUtil.instance.newInfoAlert(
-            "Wrong credentials", context, const Duration(seconds: 2));
+            "WRONG_CREDENTIALS".i18n, context, const Duration(seconds: 2));
       }
     });
   }

@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/constants.dart';
+import 'package:mobile/screens/balance/balance_screen.dart';
 
 import '../main.dart';
+import 'app_icons.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -29,6 +33,7 @@ class NavigationState extends State<Navigation> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -36,11 +41,36 @@ class NavigationState extends State<Navigation> {
             alignment: FractionalOffset.bottomCenter,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 250),
-              //if clickedCentreFAB == true, the first parameter is used. If it's false, the second.
-              height:
-                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
-              width:
-                  clickedCentreFAB ? MediaQuery.of(context).size.height : 10.0,
+              height: clickedCentreFAB ? size.height : 10.0,
+              width: clickedCentreFAB ? size.height : 10.0,
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    const Spacer(),
+                    const Spacer(),
+                    Expanded(
+                      child: FloatingActionButton(
+                        child: const Icon(AppIcons.income),
+                        onPressed: () => null, //todo
+                        backgroundColor: PRIMARY_COLOR,
+                      ),
+                    ),
+                    const Spacer(),
+                    Expanded(
+                      child: FloatingActionButton(
+                        child: const Icon(AppIcons.expense),
+                        onPressed: () => null, //todo
+                        backgroundColor: PRIMARY_COLOR,
+                      ),
+                    ),
+                    const Spacer(),
+                    const Spacer(),
+                  ],
+                ),
+              ),
               decoration: BoxDecoration(
                 borderRadius:
                     BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
@@ -79,7 +109,7 @@ class NavigationState extends State<Navigation> {
             children: <Widget>[
               IconButton(
                 onPressed: () {
-                  updateTabSelection(0, const Home());
+                  updateTabSelection(0, const Balance());
                 },
                 iconSize: 27.0,
                 icon: Icon(
@@ -89,7 +119,7 @@ class NavigationState extends State<Navigation> {
               ),
               IconButton(
                 onPressed: () {
-                  updateTabSelection(1, const Home());
+                  updateTabSelection(1, const Balance());
                 },
                 iconSize: 27.0,
                 icon: Icon(
@@ -102,7 +132,7 @@ class NavigationState extends State<Navigation> {
               ),
               IconButton(
                 onPressed: () {
-                  updateTabSelection(2, const Home());
+                  updateTabSelection(2, const Balance());
                 },
                 iconSize: 27.0,
                 icon: Icon(

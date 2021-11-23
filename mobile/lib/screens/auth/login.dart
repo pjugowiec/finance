@@ -5,7 +5,7 @@ import 'package:mobile/components/rounded_input.dart';
 import 'package:mobile/components/rounded_password_field.dart';
 import 'package:mobile/screens/auth/register.dart';
 import 'package:mobile/services/auth/auth_service.dart';
-import 'package:mobile/util/app_localizations.dart';
+import 'package:mobile/util/localization.dart';
 
 import '../../constants.dart';
 
@@ -31,8 +31,9 @@ class _LoginState extends State<Login> {
             margin: const EdgeInsets.only(
                 top: 60.0, left: 20.0, right: 20.0, bottom: 60.0),
             child: Text(
-              AppLocalizations.of(context)!.translate("LOGIN"),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0),
+              "LOGIN".i18n,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0),
             ),
           ),
           Container(
@@ -40,7 +41,7 @@ class _LoginState extends State<Login> {
             child: RoundedInputField(
               controller: _emailController,
               icon: Icons.alternate_email,
-              hintText: AppLocalizations.of(context)!.translate("EMAIL"),
+              hintText: "EMAIL".i18n,
               onChanged: (value) {},
             ),
           ),
@@ -59,13 +60,13 @@ class _LoginState extends State<Login> {
                 primary: PRIMARY_COLOR,
                 textStyle: const TextStyle(fontSize: 14),
               ),
-              child: Text(AppLocalizations.of(context)!.translate("FORGOT_PASSWORD")),
+              child: Text("FORGOT_PASSWORD".i18n),
             ),
           ),
           Container(
             margin: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
             child: RoundedButton(
-                text: AppLocalizations.of(context)!.translate("LOGIN"),
+                text: "LOGIN".i18n,
                 press: () => AuthService.instance.login(
                     _emailController.value.text,
                     _passwordController.value.text,
@@ -76,7 +77,7 @@ class _LoginState extends State<Login> {
           Container(
             margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
             child: Text(
-              AppLocalizations.of(context)!.translate("OR_CREATE_NEW_ACCOUNT"),
+              "OR_CREATE_NEW_ACCOUNT".i18n,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
@@ -87,7 +88,7 @@ class _LoginState extends State<Login> {
           Container(
             margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
             child: RoundedButton(
-                text: AppLocalizations.of(context)!.translate("REGISTER"),
+                text: "REGISTER".i18n,
                 press: () =>
                     NavigationUtil.pushToNavigator(context, const Register()),
                 color: SECONDARY_COLOR,

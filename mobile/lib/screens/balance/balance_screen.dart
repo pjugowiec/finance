@@ -18,6 +18,7 @@ class _BalanceState extends State<Balance> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+
       bottomNavigationBar: const Navigation(),
       body: Text('TEST'),
     );

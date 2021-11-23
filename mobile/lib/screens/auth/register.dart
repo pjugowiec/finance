@@ -6,7 +6,7 @@ import 'package:mobile/components/rounded_password_field.dart';
 import 'package:mobile/constants.dart';
 import 'package:mobile/screens/auth/login.dart';
 import 'package:mobile/services/auth/auth_service.dart';
-import 'package:mobile/util/app_localizations.dart';
+import 'package:mobile/util/localization.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -30,8 +30,9 @@ class _RegisterState extends State<Register> {
             margin: const EdgeInsets.only(
                 top: 60.0, left: 20.0, right: 20.0, bottom: 60.0),
             child: Text(
-              AppLocalizations.of(context)!.translate("REGISTER"),
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0),
+              "REGISTER".i18n,
+              style:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 32.0),
             ),
           ),
           Container(
@@ -39,7 +40,7 @@ class _RegisterState extends State<Register> {
             child: RoundedInputField(
               controller: _emailController,
               icon: Icons.alternate_email,
-              hintText: AppLocalizations.of(context)!.translate("EMAIL"),
+              hintText: "EMAIL".i18n,
               onChanged: (value) {},
             ),
           ),
@@ -53,7 +54,7 @@ class _RegisterState extends State<Register> {
           Container(
             margin: const EdgeInsets.only(top: 40.0, left: 20.0, right: 20.0),
             child: RoundedButton(
-                text: AppLocalizations.of(context)!.translate("REGISTER"),
+                text: "REGISTER".i18n,
                 press: () => AuthService.instance.registerUser(
                     _emailController.value.text,
                     _passwordController.value.text,
@@ -64,7 +65,7 @@ class _RegisterState extends State<Register> {
           Container(
             margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
             child: Text(
-              AppLocalizations.of(context)!.translate("OR_ALREADY_HAVE_AN_ACCOUNT"),
+              "OR_ALREADY_HAVE_AN_ACCOUNT".i18n,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               maxLines: 3,
@@ -75,7 +76,7 @@ class _RegisterState extends State<Register> {
           Container(
             margin: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
             child: RoundedButton(
-                text: AppLocalizations.of(context)!.translate("LOGIN"),
+                text: "LOGIN".i18n,
                 press: () =>
                     NavigationUtil.pushToNavigator(context, const Login()),
                 color: SECONDARY_COLOR,
