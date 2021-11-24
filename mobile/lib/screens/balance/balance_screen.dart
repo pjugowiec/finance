@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/navigation.dart';
-
+import 'package:mobile/model/balance/balance_summary.dart';
+import 'package:mobile/services/balance/balance_rest_service.dart';
 import '../../constants.dart';
 import 'components/balance_actions.dart';
+import 'components/balance_summary.dart';
 
 class Balance extends StatefulWidget {
+  const Balance({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,10 +22,22 @@ class BalanceState extends State<Balance> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       bottomNavigationBar: const Navigation(),
       body: Stack(
         children: <Widget>[
+          Column(
+            children: [
+              const BalanceSummary(),
+              Expanded(
+                flex: 8,
+                child: Container(
+                  // color: Colors.red,
+                ),
+              ),
+            ],
+          ),
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: AnimatedContainer(

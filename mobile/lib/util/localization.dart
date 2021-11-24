@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:i18n_extension/i18n_widget.dart';
@@ -27,7 +29,11 @@ extension Localization on String {
       "FIRST_WELCOME": "Gain total control of your money",
       "SECOND_WELCOME": "Track your transaction easily, with categories and financial report",
       "CONNECTION_PROBLEM": "Problem with connection",
-      "WRONG_CREDENTIALS": "Wrong credentials"
+      "WRONG_CREDENTIALS": "Wrong credentials",
+      "BALANCE": "Balance",
+      "BALANCE_GOOD_FINANCE": "Your finances are looking good",
+      "INCOME": "Income",
+      "EXPENSES": "Expenses"
     },
     "pl_pl": {
       "LANGUAGE": "Polski",

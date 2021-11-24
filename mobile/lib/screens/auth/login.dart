@@ -92,7 +92,8 @@ class _LoginState extends State<Login> {
                 press: () =>
                     NavigationUtil.pushToNavigator(context, const Register()),
                 color: SECONDARY_COLOR,
-                textColor: Colors.black),
+                textColor: Colors.black,
+            ),
           ),
         ],
       ),

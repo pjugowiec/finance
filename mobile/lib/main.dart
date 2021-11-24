@@ -23,14 +23,6 @@ class HomeState extends State<Home> {
   final GlobalKey<HomeState> homeKey = GlobalKey();
   bool isLogged = AuthService.instance.getIsLogged();
 
-  Locale _locale = const Locale('pl');
-
-  setLocale(Locale locale) {
-    setState(() {
-      _locale = locale;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,7 +37,7 @@ class HomeState extends State<Home> {
         home: I18n(
           initialLocale: EN_LOCALE,
           child: Scaffold(
-            body: true ? Balance() : WelcomeScreen(),
+            body: isLogged ? const Balance() : const WelcomeScreen(),
           ),
         ));
   }

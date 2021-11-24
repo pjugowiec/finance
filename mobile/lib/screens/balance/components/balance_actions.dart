@@ -16,6 +16,7 @@ class BalanceActions extends StatelessWidget {
         const Spacer(),
         Expanded(
           child: FloatingActionButton(
+            heroTag: "income",
             child: const Icon(AppIcons.income),
             onPressed: () => null, //todo
             backgroundColor: PRIMARY_COLOR,
@@ -24,6 +25,7 @@ class BalanceActions extends StatelessWidget {
         const Spacer(),
         Expanded(
           child: FloatingActionButton(
+            heroTag: "expense",
             child: const Icon(AppIcons.expense),
             onPressed: () => null, //todo
             backgroundColor: PRIMARY_COLOR,

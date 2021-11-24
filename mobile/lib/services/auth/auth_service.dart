@@ -47,11 +47,11 @@ class AuthService {
   }
 
   Future login(String email, String password, BuildContext context) async {
-    if(email.isEmpty || password.isEmpty || password.length < 8) {
-      AlertUtil.instance.newInfoAlert(
-          "WRONG_CREDENTIALS".i18n, context, const Duration(seconds: 2));
-      return;
-    }
+    // if(email.isEmpty || password.isEmpty || password.length < 8) {
+    //   AlertUtil.instance.newInfoAlert(
+    //       "WRONG_CREDENTIALS".i18n, context, const Duration(seconds: 2));
+    //   return;
+    // }
 
     Map<String, String> headers = {
       "Authorization": 'Basic ' + base64Encode('$email:$password'.codeUnits)

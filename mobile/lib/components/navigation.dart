@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/constants.dart';
 import 'package:mobile/screens/balance/balance_screen.dart';
 import 'package:mobile/screens/welcome_screen.dart';
-
-import '../main.dart';
-import 'app_icons.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({Key? key}) : super(key: key);
@@ -43,7 +39,7 @@ class NavigationState extends State<Navigation> {
           children: <Widget>[
             IconButton(
               onPressed: () {
-                updateTabSelection(0, Balance());
+                updateTabSelection(0, const Balance());
               },
               iconSize: 27.0,
               icon: Icon(
@@ -53,7 +49,7 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                updateTabSelection(1, Balance());
+                // updateTabSelection(1, null);
               },
               iconSize: 27.0,
               icon: Icon(
@@ -66,7 +62,7 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                updateTabSelection(2, Balance());
+                // updateTabSelection(2, Balance());
               },
               iconSize: 27.0,
               icon: Icon(
@@ -76,7 +72,7 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                updateTabSelection(3, WelcomeScreen());
+                updateTabSelection(3, const WelcomeScreen());
               },
               iconSize: 27.0,
               icon: Icon(
