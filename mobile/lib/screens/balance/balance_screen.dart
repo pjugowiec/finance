@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/navigation.dart';
-import 'package:mobile/model/balance/balance_summary.dart';
-import 'package:mobile/services/balance/balance_rest_service.dart';
+import 'package:mobile/screens/balance/components/balance_date_chip.dart';
+import 'package:mobile/util/localization.dart';
 import '../../constants.dart';
 import 'components/balance_actions.dart';
 import 'components/balance_summary.dart';
@@ -22,8 +22,14 @@ class BalanceState extends State<Balance> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    int tag = 1;
+    List<String> options = [
+      'News',
+      'Entertainment',
+      'Politics',
+    ];
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: const Navigation(),
       body: Stack(
         children: <Widget>[
@@ -31,9 +37,28 @@ class BalanceState extends State<Balance> {
             children: [
               const BalanceSummary(),
               Expanded(
-                flex: 8,
-                child: Container(
-                  // color: Colors.red,
+                flex: 9,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: ChipsFilter(
+                        selected: 0, // Select the second filter as default
+                        filters: [
+                          Filter(label: 'TODAY'.i18n),
+                          Filter(label: 'WEEK'.i18n),
+                          Filter(label: 'MONTH'.i18n),
+                          Filter(label: 'MONTH'.i18n),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 14,
+                      child: Container(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

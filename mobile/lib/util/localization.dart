@@ -32,8 +32,13 @@ extension Localization on String {
       "WRONG_CREDENTIALS": "Wrong credentials",
       "BALANCE": "Balance",
       "BALANCE_GOOD_FINANCE": "Your finances are looking good",
+      "BALANCE_BAD_FINANCE": "Your finances are looking bad",
       "INCOME": "Income",
-      "EXPENSES": "Expenses"
+      "EXPENSES": "Expenses",
+      "TODAY": "Today",
+      "WEEK": "Week",
+      "MONTH": "Month",
+      "YEAR": "Year"
     },
     "pl_pl": {
       "LANGUAGE": "Polski",

@@ -18,12 +18,7 @@ class BalanceSummary extends StatefulWidget {
 }
 
 class BalanceSummaryState extends State<BalanceSummary> {
-  late Future<BalanceSummaryModel> summary;
-
-  @override
-  void initState() {
-    summary = BalanceRestService.getSummary();
-  }
+  late Future<BalanceSummaryModel> summary = BalanceRestService.getSummary(context);
 
   @override
   Widget build(BuildContext context) {
@@ -43,29 +38,19 @@ class BalanceSummaryState extends State<BalanceSummary> {
         child: Column(
           children: [
             Expanded(
-              flex: 3,
-              child: Container(
-                padding: const EdgeInsets.only(left: 10.0, top: 35),
-                alignment: Alignment.centerLeft,
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'BALANCE'.i18n,
-                        style:
-                            const TextStyle(fontSize: 24, color: Colors.black),
-                      ),
-                      const TextSpan(text: '\n'),
-                      const TextSpan(text: '\n'),
-                      TextSpan(
-                        text: 'BALANCE_GOOD_FINANCE'.i18n,
-                        // todo dynamic check finances
-                        style:
-                            const TextStyle(fontSize: 14, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
+              flex: 2,
+              child: FutureBuilder<BalanceSummaryModel>(
+                future: summary,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ConditionBalance(
+                        income: snapshot.data!.income,
+                        expenses: snapshot.data!.expenses);
+                  } else if (snapshot.hasError) {
+                    return const ConditionBalance(income: 0, expenses: 0);
+                  }
+                  return const CircularProgressIndicator();
+                },
               ),
             ),
             Expanded(
@@ -115,6 +100,48 @@ class BalanceSummaryState extends State<BalanceSummary> {
   }
 }
 
+class ConditionBalance extends StatelessWidget {
+  final double income;
+  final double expenses;
+
+  const ConditionBalance(
+      {Key? key, required this.income, required this.expenses})
+      : super(key: key);
+
+  String checkConditionOfFinances() {
+    if (expenses - income < 0) {
+      return 'BALANCE_BAD_FINANCE'.i18n;
+    } else {
+      'BALANCE_GOOD_FINANCE'.i18n;
+    }
+    return '';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(left: 10.0, top: 35),
+      alignment: Alignment.centerLeft,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'BALANCE'.i18n,
+              style: const TextStyle(fontSize: 24, color: Colors.black),
+            ),
+            const TextSpan(text: '\n'),
+            const TextSpan(text: '\n'),
+            TextSpan(
+              text: checkConditionOfFinances(),
+              style: const TextStyle(fontSize: 14, color: Colors.black),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class IncomeExpensesButtons extends StatelessWidget {
   final double income;
   final double expenses;
@@ -140,7 +167,7 @@ class IncomeExpensesButtons extends StatelessWidget {
                 ),
                 // Spacer(),
                 RichText(
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                   text: TextSpan(
                     children: [
                       TextSpan(text: 'INCOME'.i18n),
@@ -158,7 +185,7 @@ class IncomeExpensesButtons extends StatelessWidget {
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               primary: PRIMARY_COLOR,
             ),
@@ -178,7 +205,7 @@ class IncomeExpensesButtons extends StatelessWidget {
                 ),
                 // Spacer(),
                 RichText(
-                  textAlign: TextAlign.left,
+                  textAlign: TextAlign.center,
                   text: TextSpan(
                     children: [
                       TextSpan(text: 'EXPENSES'.i18n),
@@ -187,6 +214,7 @@ class IncomeExpensesButtons extends StatelessWidget {
                       TextSpan(
                           text: '$expenses', // data from server
                           style: const TextStyle(
+
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
                   ),
@@ -196,7 +224,7 @@ class IncomeExpensesButtons extends StatelessWidget {
             onPressed: () {},
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(30.0),
               ),
               primary: PRIMARY_COLOR,
             ),
