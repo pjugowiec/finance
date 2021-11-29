@@ -17,7 +17,7 @@ extension Localization on String {
   static Map<String, Map<String, String>> translations = {};
   static final _t = Translations.byLocale("en_us") + {
     "en_us": {
-      "LANGUAGE": "English",
+      "ENGLISH": "English",
       "IN_PROGRESS": "In progress",
       "REGISTER": "Register",
       "LOGIN": "Login",
@@ -38,7 +38,19 @@ extension Localization on String {
       "TODAY": "Today",
       "WEEK": "Week",
       "MONTH": "Month",
-      "YEAR": "Year"
+      "YEAR": "Year",
+      "SETTINGS": "Settings",
+      "COMMONS": "Commons",
+      "LANGUAGES": "Languages",
+      "CURRENCIES": "Currencies",
+      "DOLLAR": "Dollar",
+      "POLISH_ZLOTY": "Polish złoty",
+      "USD_SHORT": "USD",
+      "INFORMATION": "Information",
+      "HELP": "Help",
+      "ABOUT": "About",
+      "LOGOUT": "Logout",
+      "GENERAL": "General"
     },
     "pl_pl": {
       "LANGUAGE": "Polski",

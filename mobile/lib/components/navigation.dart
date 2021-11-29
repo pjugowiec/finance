@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/constants.dart';
 import 'package:mobile/screens/balance/balance_screen.dart';
-import 'package:mobile/screens/welcome_screen.dart';
+import 'package:mobile/screens/settings/settings_screen.dart';
 
 class Navigation extends StatefulWidget {
-  const Navigation({Key? key}) : super(key: key);
+  int selectedIndex = 0;
+
+  Navigation({Key? key, required this.selectedIndex}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -15,17 +17,20 @@ class Navigation extends StatefulWidget {
 
 class NavigationState extends State<Navigation> {
   bool clickedCentreFAB = false;
-  int selectedIndex = 0;
+
+  void setSelectedIndex(int selectedIndex) {
+    widget.selectedIndex = selectedIndex;
+  }
 
   void updateTabSelection(int index, Widget widget) {
     setState(() {
-      selectedIndex = index;
+      setSelectedIndex(index);
       NavigationUtil.pushToNavigator(context, widget);
     });
   }
 
   Color getShade(int index) {
-    return selectedIndex == index ? PRIMARY_COLOR : ICON_UNUSED_COLOR;
+    return widget.selectedIndex == index ? PRIMARY_COLOR : ICON_UNUSED_COLOR;
   }
 
   @override
@@ -72,11 +77,11 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                updateTabSelection(3, const WelcomeScreen());
+                updateTabSelection(3, const SettingsScreen());
               },
               iconSize: 27.0,
               icon: Icon(
-                Icons.person,
+                Icons.settings,
                 color: getShade(3),
               ),
             ),

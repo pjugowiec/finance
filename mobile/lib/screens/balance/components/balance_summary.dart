@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:mobile/components/app_icons.dart';
 import 'package:mobile/model/balance/balance_summary.dart';
