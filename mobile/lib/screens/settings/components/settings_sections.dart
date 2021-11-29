@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/screens/settings/components/settings_language.dart';
+import 'package:mobile/services/auth/auth_service.dart';
 import 'package:mobile/util/localization.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -15,7 +17,7 @@ class SettingsSections extends StatelessWidget {
             tiles: [
               SettingsTile(
                 title: 'LANGUAGES'.i18n,
-                subtitle: 'ENGLISH'.i18n,
+                subtitle: getTranslatedLanguage(I18n.language),
                 onPressed: (BuildContext context) {
                   NavigationUtil.pushToNavigator(context, const SettingsLanguage());
                 },
@@ -42,7 +44,7 @@ class SettingsSections extends StatelessWidget {
             tiles: [
               SettingsTile(
                 title: 'LOGOUT'.i18n,
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) => AuthService.instance.logout(context),
               ),
             ],
           )

@@ -5,6 +5,7 @@ import 'package:mobile/screens/balance/components/balance_date_chip.dart';
 import 'package:mobile/util/localization.dart';
 import '../../constants.dart';
 import 'components/balance_actions.dart';
+import 'components/balance_recent_transations.dart';
 import 'components/balance_summary.dart';
 
 class Balance extends StatefulWidget {
@@ -51,9 +52,7 @@ class BalanceState extends State<Balance> {
                     ),
                     Expanded(
                       flex: 14,
-                      child: Container(
-                        color: Colors.blue,
-                      ),
+                      child: BalanceRecentTransactions(),
                     ),
                   ],
                 ),

@@ -52,14 +52,14 @@ class _ChipsFilterState extends State<ChipsFilter> {
         label: Text(filter.label),
         padding: const EdgeInsets.only(left: 15.0, right: 15.0),
         labelStyle: TextStyle(
-            color: isActive ? Colors.white : Colors.black, fontSize: 13),
+            color: isActive ? Colors.black : Colors.grey, fontSize: 13),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         selected: isActive,
         onSelected: (bool selected) => setState(() {
           selectedIndex = currentIndex;
         }),
-        disabledColor: Colors.red,
-        selectedColor: PRIMARY_COLOR,
+        selectedColor: SECONDARY_COLOR,
+        backgroundColor: Colors.white,
       ),
     );
   }

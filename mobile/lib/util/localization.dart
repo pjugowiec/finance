@@ -4,9 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:i18n_extension/i18n_extension.dart';
 import 'package:i18n_extension/i18n_widget.dart';
 
-const Locale PL_LOCALE = Locale('pl', 'PL');
-const Locale EN_LOCALE = Locale('en', 'US');
+const List<Locale> supportedLocales = [
+  Locale('pl', 'PL'),
+  Locale('en', 'US')
+];
 
+String getTranslatedLanguage(String language) {
+  switch(language) {
+    case 'pl': {
+      return 'POLISH'.i18n;
+    }
+    case 'en': {
+      return 'ENGLISH'.i18n;
+    }
+    default: {
+      throw Exception('Not supported language');
+    }
+  }
+}
 extension Localization on String {
   String get i18n => localize(this, _t);
 
@@ -18,6 +33,7 @@ extension Localization on String {
   static final _t = Translations.byLocale("en_us") + {
     "en_us": {
       "ENGLISH": "English",
+      "POLISH": "Polish",
       "IN_PROGRESS": "In progress",
       "REGISTER": "Register",
       "LOGIN": "Login",
@@ -31,6 +47,7 @@ extension Localization on String {
       "CONNECTION_PROBLEM": "Problem with connection",
       "WRONG_CREDENTIALS": "Wrong credentials",
       "BALANCE": "Balance",
+      "DASHBOARD": "Dashboard",
       "BALANCE_GOOD_FINANCE": "Your finances are looking good",
       "BALANCE_BAD_FINANCE": "Your finances are looking bad",
       "INCOME": "Income",
@@ -50,7 +67,9 @@ extension Localization on String {
       "HELP": "Help",
       "ABOUT": "About",
       "LOGOUT": "Logout",
-      "GENERAL": "General"
+      "GENERAL": "General",
+      "RECENT_TRANSACTION": "Recent Transaction",
+      "SEE_ALL": "See all"
     },
     "pl_pl": {
       "LANGUAGE": "Polski",

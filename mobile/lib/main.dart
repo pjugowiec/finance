@@ -25,20 +25,19 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        localizationsDelegates: const [
+    return I18n(
+      initialLocale: supportedLocales
+          .firstWhere((element) => element.languageCode == 'en'),
+      child: const MaterialApp(
+        localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: const [
-          EN_LOCALE,
-          PL_LOCALE,
-        ],
-        home: I18n(
-          initialLocale: EN_LOCALE,
-          child: Scaffold(
-            body: true ? const Balance() : const WelcomeScreen(),
-          ),
-        ));
+        supportedLocales: supportedLocales,
+        home: Scaffold(
+          body: true ? Balance() : WelcomeScreen(),
+        ),
+      ),
+    );
   }
 }

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/components/back_bar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
-import 'package:mobile/screens/balance/components/balance_date_chip.dart';
-import 'package:mobile/screens/balance/components/balance_summary.dart';
-import 'package:mobile/util/localization.dart';
-import 'package:settings_ui/settings_ui.dart';
 
 import '../../constants.dart';
 import 'components/settings_sections.dart';

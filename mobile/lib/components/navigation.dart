@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:i18n_extension/i18n_widget.dart';
 import 'package:mobile/constants.dart';
 import 'package:mobile/screens/balance/balance_screen.dart';
 import 'package:mobile/screens/settings/settings_screen.dart';

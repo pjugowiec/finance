@@ -16,7 +16,8 @@ class BalanceSummary extends StatefulWidget {
 }
 
 class BalanceSummaryState extends State<BalanceSummary> {
-  late Future<BalanceSummaryModel> summary = BalanceRestService.getSummary(context);
+  late Future<BalanceSummaryModel> summary =
+      BalanceRestService.getSummary(context);
 
   @override
   Widget build(BuildContext context) {
@@ -112,28 +113,29 @@ class ConditionBalance extends StatelessWidget {
     } else {
       'BALANCE_GOOD_FINANCE'.i18n;
     }
-    return '';
+    return 'BALANCE_BAD_FINANCE'.i18n;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(left: 10.0, top: 35),
-      alignment: Alignment.centerLeft,
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'BALANCE'.i18n,
-              style: const TextStyle(fontSize: 24, color: Colors.black),
-            ),
-            const TextSpan(text: '\n'),
-            const TextSpan(text: '\n'),
-            TextSpan(
-              text: checkConditionOfFinances(),
-              style: const TextStyle(fontSize: 14, color: Colors.black),
-            ),
-          ],
+    return SafeArea(
+      child: Container(
+        padding: const EdgeInsets.only(left: 10.0),
+        alignment: Alignment.centerLeft,
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'DASHBOARD'.i18n,
+                style: const TextStyle(fontSize: 22, color: Colors.black),
+              ),
+              // const TextSpan(text: '\n'),
+              // TextSpan(
+              //   text: checkConditionOfFinances(),
+              //   style: const TextStyle(fontSize: 14, color: Colors.black),
+              // ),
+            ],
+          ),
         ),
       ),
     );
@@ -212,7 +214,6 @@ class IncomeExpensesButtons extends StatelessWidget {
                       TextSpan(
                           text: '$expenses', // data from server
                           style: const TextStyle(
-
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
                   ),
