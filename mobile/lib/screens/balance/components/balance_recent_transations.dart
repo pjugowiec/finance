@@ -18,9 +18,15 @@ class BalanceRecentTransactionsState extends State<BalanceRecentTransactions> {
       children: [
         const BalanceRecentTransactionsText(),
         Expanded(
-          flex: 7,
-          child: Container(
-            color: Colors.red,
+          flex: 9,
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: 20,
+            physics: const ScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Container(child: Text('dwa'));
+            },
           ),
         ),
       ],

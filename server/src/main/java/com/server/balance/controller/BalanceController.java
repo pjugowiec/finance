@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/0")
+@RequestMapping("/")
 @AllArgsConstructor
 public class BalanceController {
 

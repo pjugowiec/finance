@@ -22,9 +22,7 @@ class BalanceState extends State<Balance> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -33,7 +31,8 @@ class BalanceState extends State<Balance> {
         children: <Widget>[
           Column(
             children: [
-              const BalanceSummary(),
+              // const BalanceSummary(),
+              Expanded(flex: 6, child: Container()),
               Expanded(
                 flex: 9,
                 child: Column(
@@ -50,7 +49,7 @@ class BalanceState extends State<Balance> {
                         ],
                       ),
                     ),
-                    Expanded(
+                    const Expanded(
                       flex: 14,
                       child: BalanceRecentTransactions(),
                     ),
@@ -71,7 +70,7 @@ class BalanceState extends State<Balance> {
               ),
               decoration: BoxDecoration(
                 borderRadius:
-                BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
+                    BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -102,5 +101,5 @@ class BalanceState extends State<Balance> {
         backgroundColor: PRIMARY_COLOR,
       ),
     );
-    }
+  }
 }
