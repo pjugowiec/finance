@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/transactions_list.dart';
 import 'package:mobile/util/localization.dart';
 
 class BalanceRecentTransactions extends StatefulWidget {
@@ -13,21 +14,13 @@ class BalanceRecentTransactions extends StatefulWidget {
 class BalanceRecentTransactionsState extends State<BalanceRecentTransactions> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Column(
-      children: [
-        const BalanceRecentTransactionsText(),
+      children: const [
+        BalanceRecentTransactionsText(),
+        Divider(),
         Expanded(
           flex: 9,
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: 20,
-            physics: const ScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Container(child: Text('dwa'));
-            },
-          ),
+          child: TransactionListView(count: 5),
         ),
       ],
     );
@@ -54,7 +47,7 @@ class BalanceRecentTransactionsText extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(right: 20),
+              margin: const EdgeInsets.only(right: 35),
               child: TextButton(
                 onPressed: () {},
                 child: Text('SEE_ALL'.i18n),

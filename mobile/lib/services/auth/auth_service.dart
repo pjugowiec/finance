@@ -33,7 +33,7 @@ class AuthService {
   void registerUser(String email, String password, BuildContext context) async {
     var body = RegisterUser(email: email, password: password).toJson();
 
-    await http.post(RequestUtil.getUri("register"),
+    await http.post(RequestUtil.getUri("register", {}),
         body: jsonEncode({"email": email, "password": password}),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json'
@@ -59,7 +59,7 @@ class AuthService {
     };
 
     await http
-        .post(RequestUtil.getUri("login"), headers: headers)
+        .post(RequestUtil.getUri("login", {}), headers: headers)
         .then((response) {
       if (response.statusCode == 200) {
         Map<String, String> responseMap = response.headers;

@@ -191,7 +191,7 @@ class IncomeExpensesButtons extends StatelessWidget {
             ),
           ),
         ),
-        Spacer(),
+        const Spacer(),
         SizedBox(
           height: 80,
           width: 160,

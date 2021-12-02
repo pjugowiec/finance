@@ -13,7 +13,7 @@ class BalanceRestService {
   static Future<BalanceSummaryModel> getSummary(BuildContext context) async {
     AuthService.JWT_TOKEN;
 
-    final response = await http.get(RequestUtil.getUri('balance'), headers: {
+    final response = await http.get(RequestUtil.getUri('balance', {}), headers: {
     HttpHeaders.contentTypeHeader: 'application/json',
       AuthService.AUTHORIZATION: AuthService.JWT_TOKEN
     });

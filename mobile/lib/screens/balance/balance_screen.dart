@@ -1,14 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/screens/balance/components/balance_date_chip.dart';
 import 'package:mobile/util/localization.dart';
 import '../../constants.dart';
 import 'components/balance_actions.dart';
-import 'components/balance_recent_transations.dart';
+import 'components/balance_recent_transactions.dart';
 import 'components/balance_summary.dart';
 
 class Balance extends StatefulWidget {
+  static DateTime CURRENT_DATE_SELECTED = DateTime.now();
+
   const Balance({Key? key}) : super(key: key);
 
   @override
@@ -19,10 +22,18 @@ class Balance extends StatefulWidget {
 
 class BalanceState extends State<Balance> {
   bool clickedCentreFAB = false;
+  var transactionPage = BalanceRecentTransactions(key: UniqueKey());
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var currentDate = DateTime.now();
+
+    void callback(var page) {
+      setState(() {
+        transactionPage = page;
+      });
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -31,8 +42,7 @@ class BalanceState extends State<Balance> {
         children: <Widget>[
           Column(
             children: [
-              // const BalanceSummary(),
-              Expanded(flex: 6, child: Container()),
+              const BalanceSummary(),
               Expanded(
                 flex: 9,
                 child: Column(
@@ -40,18 +50,28 @@ class BalanceState extends State<Balance> {
                     Expanded(
                       flex: 2,
                       child: ChipsFilter(
+                        callback: callback,
                         selected: 0,
                         filters: [
-                          Filter(label: 'TODAY'.i18n),
-                          Filter(label: 'WEEK'.i18n),
-                          Filter(label: 'MONTH'.i18n),
-                          Filter(label: 'YEAR'.i18n),
+                          Filter(label: 'TODAY'.i18n, date: currentDate),
+                          Filter(
+                              label: 'WEEK'.i18n,
+                              date: currentDate
+                                  .subtract(const Duration(days: 7))),
+                          Filter(
+                              label: 'MONTH'.i18n,
+                              date: DateTime(currentDate.year,
+                                  currentDate.month - 1, currentDate.day)),
+                          Filter(
+                              label: 'YEAR'.i18n,
+                              date: DateTime(currentDate.year - 1,
+                                  currentDate.month, currentDate.day)),
                         ],
                       ),
                     ),
-                    const Expanded(
+                    Expanded(
                       flex: 14,
-                      child: BalanceRecentTransactions(),
+                      child: transactionPage,
                     ),
                   ],
                 ),

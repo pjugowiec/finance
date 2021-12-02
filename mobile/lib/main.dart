@@ -28,14 +28,14 @@ class HomeState extends State<Home> {
     return I18n(
       initialLocale: supportedLocales
           .firstWhere((element) => element.languageCode == 'en'),
-      child: const MaterialApp(
-        localizationsDelegates: [
+      child: MaterialApp(
+        localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
         supportedLocales: supportedLocales,
         home: Scaffold(
-          body: true ? Balance() : WelcomeScreen(),
+          body: isLogged ? const Balance() : const WelcomeScreen(),
         ),
       ),
     );
