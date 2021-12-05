@@ -26,10 +26,11 @@ public interface BalanceTransactionRepository extends JpaRepository<BalanceTrans
 
 
     @Query(value = "SELECT new com.server.balance.model.Transaction(" +
-            "e.id," +
-            "e.description," +
-            "c.value," +
-            "e.balance," +
+            "e.id, " +
+            "e.balanceFlow, " +
+            "e.description, " +
+            "c.value, " +
+            "e.balance, " +
             "e.created) " +
             "FROM #{#entityName} e " +
             "JOIN e.categoryEntity c " +
