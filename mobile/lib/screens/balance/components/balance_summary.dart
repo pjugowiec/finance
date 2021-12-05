@@ -9,13 +9,15 @@ import '../../../constants.dart';
 class BalanceSummary extends StatefulWidget {
   const BalanceSummary({Key? key}) : super(key: key);
 
+  static double currentBalance = 0.0;
+
   @override
   State<StatefulWidget> createState() {
-    return BalanceSummaryState();
+    return _BalanceSummaryState();
   }
 }
 
-class BalanceSummaryState extends State<BalanceSummary> {
+class _BalanceSummaryState extends State<BalanceSummary> {
   late Future<BalanceSummaryModel> summary =
       BalanceRestService.getSummary(context);
 
@@ -60,6 +62,7 @@ class BalanceSummaryState extends State<BalanceSummary> {
                   future: summary,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      BalanceSummary.currentBalance = snapshot.data!.balance;
                       return BalanceSummaryText(
                           balance: snapshot.data!.balance);
                     } else if (snapshot.hasError) {

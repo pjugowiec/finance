@@ -17,7 +17,11 @@ class SettingsLanguage extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.07),
-        child: BackBarNavigation(label: 'LANGUAGES'.i18n),
+        child: BackBarNavigation(
+            label: 'LANGUAGES'.i18n,
+            background: Colors.white,
+            textColor: Colors.black,
+            iconColor: Colors.black),
       ),
       body: ListView(
         children: [

@@ -69,7 +69,9 @@ extension Localization on String {
       "LOGOUT": "Logout",
       "GENERAL": "General",
       "RECENT_TRANSACTION": "Recent Transaction",
-      "SEE_ALL": "See all"
+      "SEE_ALL": "See all",
+      "WHEN": "When",
+      "SAVE": "Save"
     },
     "pl_pl": {
       "LANGUAGE": "Polski",
