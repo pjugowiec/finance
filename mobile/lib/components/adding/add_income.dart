@@ -30,7 +30,7 @@ class _AddIncomeState extends State<AddIncome> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.07),
         child: BackBarNavigation(
-          label: 'INCOME '.i18n,
+          label: 'INCOME'.i18n,
           background: Colors.white,
           textColor: Colors.black,
           iconColor: Colors.black,
