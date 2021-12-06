@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:i18n_extension/i18n_widget.dart';
-import 'package:intl/intl.dart';
-import 'package:mobile/components/rounded_button.dart';
-import 'package:mobile/components/rounded_input.dart';
-import 'package:mobile/components/text_field_container.dart';
+import 'package:flutter/services.dart';
+import 'package:mobile/screens/balance/components/balance_summary.dart';
+import 'package:mobile/util/income_util.dart';
 import 'package:mobile/util/localization.dart';
+import 'package:mobile/util/shared_preferences.dart';
 
-import '../../constants.dart';
 import '../back_bar_navigation.dart';
-import '../date_select.dart';
 import 'components/adding_actions.dart';
 
 class AddIncome extends StatefulWidget {
@@ -21,12 +18,17 @@ class AddIncome extends StatefulWidget {
 class _AddIncomeState extends State<AddIncome> {
   TextEditingController dateInput = TextEditingController();
   TextEditingController descriptionInput = TextEditingController();
+  TextEditingController balanceInput = TextEditingController();
+
+  final String prefixCurrency =
+      SharedPreferences.getCurrencyShort(SharedPreferences.CURRENCY);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(size.height * 0.07),
         child: BackBarNavigation(
@@ -39,8 +41,105 @@ class _AddIncomeState extends State<AddIncome> {
       body: Column(
         children: [
           Expanded(
-            flex: 4,
-            child: Container(color: Colors.red),
+            flex: 3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: 'HOW_MUCH'.i18n,
+                          style: const TextStyle(
+                              color: Colors.grey, fontSize: 16)),
+                      const TextSpan(text: '\n'),
+                      const TextSpan(text: '\n'),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 30.0),
+                  child: TextFormField(
+                    textDirection: TextDirection.ltr,
+                    controller: balanceInput,
+                    onChanged: (value) {
+                      balanceInput.text = value;
+                    },
+                    cursorColor: Colors.black,
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.number,
+                    style: const TextStyle(
+                      fontSize: 26,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      hintText: prefixCurrency + '000',
+                      hintStyle: const TextStyle(
+                        fontSize: 26,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(right: 30.0),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                                text: 'CURRENT_BALANCE'.i18n,
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14)),
+                            const TextSpan(text: '\n'),
+                            const TextSpan(text: '\n'),
+                            TextSpan(
+                                text: prefixCurrency +
+                                    BalanceSummary.currentBalance.toString(),
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 16)),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 30.0),
+                      child: RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                                text: 'AFTER_CHANGE'.i18n,
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 14)),
+                            const TextSpan(text: '\n'),
+                            const TextSpan(text: '\n'),
+                            TextSpan(
+                                text: prefixCurrency +
+                                    IncomeUtil.addIncome(
+                                            1000, BalanceSummary.currentBalance)
+                                        .toString(),
+                                style: const TextStyle(
+                                    color: Colors.grey, fontSize: 16)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           const Divider(),
           Expanded(

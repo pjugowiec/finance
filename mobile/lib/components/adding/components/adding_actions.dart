@@ -20,7 +20,7 @@ class AddingActions extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+          margin: const EdgeInsets.only(top: 40.0, bottom: 10.0),
           width: size.width * 0.9,
           child: DateSelect(
             iconColor: PRIMARY_COLOR,
