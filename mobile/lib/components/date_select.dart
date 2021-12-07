@@ -28,7 +28,7 @@ class _DateSelectState extends State<DateSelect> {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       color: widget.backgroundColor,
-      child: TextField(
+      child: TextFormField(
         controller: widget.controller,
         cursorColor: widget.iconColor,
         decoration: InputDecoration(

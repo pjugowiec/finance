@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile/screens/balance/components/balance_summary.dart';
+import 'package:mobile/model/balance/balance_dto.dart';
+import 'package:mobile/services/balance/balance_rest_service.dart';
 import 'package:mobile/util/income_util.dart';
 import 'package:mobile/util/localization.dart';
 import 'package:mobile/util/shared_preferences.dart';
 
+import '../../constants.dart';
 import '../back_bar_navigation.dart';
 import 'components/adding_actions.dart';
+import 'components/balance_change_line.dart';
 
 class AddIncome extends StatefulWidget {
   const AddIncome({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class AddIncome extends StatefulWidget {
 }
 
 class _AddIncomeState extends State<AddIncome> {
+  double balance = 0.0;
   TextEditingController dateInput = TextEditingController();
   TextEditingController descriptionInput = TextEditingController();
   TextEditingController balanceInput = TextEditingController();
@@ -23,9 +27,21 @@ class _AddIncomeState extends State<AddIncome> {
   final String prefixCurrency =
       SharedPreferences.getCurrencyShort(SharedPreferences.CURRENCY);
 
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    void callback(int categoryId) {
+      BalanceDto balanceDto = BalanceDto(
+          description: descriptionInput.text,
+          categoryId: categoryId,
+          balanceFlow: 'INCOME',
+          balance: balance
+      );
+      BalanceRestService.addBalance(context, balanceDto);
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -63,12 +79,10 @@ class _AddIncomeState extends State<AddIncome> {
                   child: TextFormField(
                     textDirection: TextDirection.ltr,
                     controller: balanceInput,
-                    onChanged: (value) {
-                      balanceInput.text = value;
-                    },
-                    cursorColor: Colors.black,
+                    cursorColor: PRIMARY_COLOR,
                     textAlign: TextAlign.center,
-                    keyboardType: TextInputType.number,
+                    onSaved: (value) => balance = double.parse(value!),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     style: const TextStyle(
                       fontSize: 26,
                       color: Colors.black,
@@ -89,54 +103,9 @@ class _AddIncomeState extends State<AddIncome> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 30.0),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: 'CURRENT_BALANCE'.i18n,
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 14)),
-                            const TextSpan(text: '\n'),
-                            const TextSpan(text: '\n'),
-                            TextSpan(
-                                text: prefixCurrency +
-                                    BalanceSummary.currentBalance.toString(),
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 30.0),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: 'AFTER_CHANGE'.i18n,
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 14)),
-                            const TextSpan(text: '\n'),
-                            const TextSpan(text: '\n'),
-                            TextSpan(
-                                text: prefixCurrency +
-                                    IncomeUtil.addIncome(
-                                            1000, BalanceSummary.currentBalance)
-                                        .toString(),
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                BalanceChangeLine(
+                  calculateDifferent:
+                  IncomeUtil.addIncome,
                 ),
               ],
             ),
@@ -145,6 +114,7 @@ class _AddIncomeState extends State<AddIncome> {
           Expanded(
             flex: 6,
             child: AddingActions(
+              callback: callback,
               dateInput: dateInput,
               descriptionInput: descriptionInput,
             ),

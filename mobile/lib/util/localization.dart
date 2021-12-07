@@ -75,7 +75,9 @@ extension Localization on String {
       "AFTER_CHANGE": "After Change:",
       "CURRENT_BALANCE": "Current Balance:",
       "HOW_MUCH": "How much?",
-      "DESCRIPTION": "Description"
+      "DESCRIPTION": "Description",
+      "CHOOSE_CATEGORY": "Choose category",
+      "SUCCESSES_ADDED": "Successes added"
     },
     "pl_pl": {
       "ENGLISH": "Angielski",

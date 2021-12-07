@@ -31,7 +31,6 @@ class AuthService {
   static const String AUTHORIZATION = "authorization";
 
   void registerUser(String email, String password, BuildContext context) async {
-    var body = RegisterUser(email: email, password: password).toJson();
 
     await http.post(RequestUtil.getUri("register", {}),
         body: jsonEncode({"email": email, "password": password}),
