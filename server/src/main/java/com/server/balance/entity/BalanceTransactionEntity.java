@@ -38,6 +38,9 @@ public class BalanceTransactionEntity {
     @Column(name = "created", nullable = false)
     private LocalDateTime created;
 
+    @Column(name = "transaction_date")
+    private LocalDateTime transactionDate;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity categoryEntity;

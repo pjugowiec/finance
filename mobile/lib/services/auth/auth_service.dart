@@ -27,7 +27,7 @@ class AuthService {
 
   void setIsLogged(bool value) => _isLogged = value;
 
-  static String JWT_TOKEN = "";
+  static String JWT_TOKEN = "Bearer=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjM5MDgxMTU3fQ.xzP4VlSoe_TLnjYPKP9P62p4ZXomIVm0nln6yIBLBgs";
   static const String AUTHORIZATION = "authorization";
 
   void registerUser(String email, String password, BuildContext context) async {

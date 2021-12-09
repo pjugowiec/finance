@@ -31,11 +31,11 @@ public interface BalanceTransactionRepository extends JpaRepository<BalanceTrans
             "e.description, " +
             "c.value, " +
             "e.balance, " +
-            "e.created) " +
+            "e.transactionDate) " +
             "FROM #{#entityName} e " +
             "JOIN e.categoryEntity c " +
             "JOIN e.userEntity u " +
-            "WHERE (e.created BETWEEN :from AND :to) " +
+            "WHERE (e.transactionDate BETWEEN :from AND :to) " +
             "AND u.email = :username")
     List<Transaction> getTranslations(@Param("from")final LocalDateTime from,
                                       @Param("to")final LocalDateTime to,

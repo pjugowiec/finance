@@ -22,6 +22,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,7 +53,8 @@ class BalanceServiceTest {
 
     @Test
     void addBalance_ShouldAddBalance() {
-        final Balance balance = new Balance(new BigDecimal("12.45"), "DES", 1L, BalanceFlow.INCOME);
+        final Balance balance = new Balance(new BigDecimal("12.45"), "DES",
+                1L, BalanceFlow.INCOME, LocalDateTime.now());
         Mockito.when(categoryRepository.getById(any()))
                 .thenReturn(new CategoryEntity());
         Mockito.when(currencyRepository.getById(any()))

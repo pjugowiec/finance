@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: addColumn-balance-transaction
+      author: Patryk Jugowiec
+      changes:
+        - addColumn:
+            tableName: balance_transactions
+            columns:
+              - column:
+                  name: transaction_date
+                  type: timestamp

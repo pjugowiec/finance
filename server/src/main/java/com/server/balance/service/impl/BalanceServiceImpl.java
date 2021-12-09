@@ -15,12 +15,12 @@ import com.server.shared.entity.CurrencyEntity;
 import com.server.shared.exceptions.ValidationException;
 import com.server.shared.util.CommonErrorMessage;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,7 +49,9 @@ public class BalanceServiceImpl implements BalanceService {
                 .userEntity(securityUserDetailsService.getCurrentUser())
                 .currencyEntity(currencyEntity)
                 .created(LocalDateTime.now())
+                .transactionDate(balance.date())
                 .build();
+
         balanceTransactionRepository.save(entity);
 
         return balance;
@@ -57,7 +59,11 @@ public class BalanceServiceImpl implements BalanceService {
 
     @Override
     public BalanceSummary getSummary(final String username) {
-        return balanceTransactionRepository.getSummary(username);
+        final BalanceSummary balanceSummary = balanceTransactionRepository.getSummary(username);
+        if (balanceSummary == null || balanceSummary.balance() == null)
+            return new BalanceSummary(BigDecimal.valueOf(0.0), BigDecimal.valueOf(0.0), BigDecimal.valueOf(0.0));
+
+        return balanceSummary;
     }
 
     @Override
@@ -69,7 +75,7 @@ public class BalanceServiceImpl implements BalanceService {
 
     @Override
     public void deleteTransaction(Long id) {
-        if(!balanceTransactionRepository.existsById(id)) {
+        if (!balanceTransactionRepository.existsById(id)) {
             throw new ValidationException(CommonErrorMessage.NOT_FOUND.name());
         }
         balanceTransactionRepository.deleteById(id);

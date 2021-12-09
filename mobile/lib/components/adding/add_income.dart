@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mobile/model/balance/balance_dto.dart';
@@ -38,7 +40,8 @@ class _AddIncomeState extends State<AddIncome> {
           description: descriptionInput.text,
           categoryId: categoryId,
           balanceFlow: 'INCOME',
-          balance: balance
+          balance: double.parse(balanceInput.text),
+          date: DateTime.parse(dateInput.text)
       );
       BalanceRestService.addBalance(context, balanceDto);
     }

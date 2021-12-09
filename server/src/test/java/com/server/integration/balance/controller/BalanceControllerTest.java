@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static com.server.helpers.RequestConfig.PASSWORD_USER_1;
 import static com.server.helpers.RequestConfig.USERNAME_USER_1;
@@ -43,7 +44,8 @@ class BalanceControllerTest {
 
     @Test
     void addBalance_ShouldAddBalance() {
-        final Balance balance = new Balance(new BigDecimal("23.45"), "TEST", 1000L, BalanceFlow.INCOME);
+        final LocalDateTime date = LocalDateTime.parse("2021-11-11T10:29:10");
+        final Balance balance = new Balance(new BigDecimal("23.45"), "TEST", 1000L, BalanceFlow.INCOME, date);
 
         given(requestSpecification)
                 .body(balance)
@@ -60,11 +62,29 @@ class BalanceControllerTest {
         assertEquals(balance.balance(), entity.getBalance());
         assertEquals(balance.balanceFlow(), entity.getBalanceFlow());
         assertEquals(balance.description(), entity.getDescription());
+        assertEquals(date, entity.getTransactionDate());
         assertNotNull(entity.getCreated());
     }
 
     @Test
     void getSummary_ShouldReturnSummary() {
+
+        requestSpecification = RequestConfig.createRequestWithJwtToken("test1@test", PASSWORD_USER_1, port);
+        final Response response = given(requestSpecification)
+                .get("/balance")
+                .andReturn();
+
+        assertEquals(200, response.getStatusCode());
+
+        final BalanceSummary summary = response.getBody().as(BalanceSummary.class);
+
+        assertEquals(new BigDecimal("0.0"), summary.income());
+        assertEquals(new BigDecimal("0.0"), summary.expenses());
+        assertEquals(new BigDecimal("0.0"), summary.balance());
+    }
+
+    @Test
+    void getSummary_ShouldReturnEmptySummary() {
 
         final Response response = given(requestSpecification)
                 .get("/balance")

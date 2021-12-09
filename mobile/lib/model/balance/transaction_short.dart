@@ -13,7 +13,7 @@ class TransactionShort {
     required this.description,
     required this.category,
     required this.balance,
-    required this.created,
+    required this.transactionDate,
   });
 
   int id;
@@ -21,7 +21,7 @@ class TransactionShort {
   String description;
   String category;
   double balance;
-  DateTime created;
+  DateTime transactionDate;
 
   factory TransactionShort.fromJson(Map<String, dynamic> json) =>
       TransactionShort(
@@ -29,7 +29,7 @@ class TransactionShort {
         description: json["description"],
         category: json["category"],
         balance: json["balance"],
-        created: DateTime.parse(json["created"]),
+        transactionDate: DateTime.parse(json["transactionDate"]),
         type: json["type"],
       );
 
@@ -40,6 +40,6 @@ class TransactionShort {
         "balance": balance,
         "type": type,
         "created":
-            "${created.year.toString().padLeft(4, '0')}-${created.month.toString().padLeft(2, '0')}-${created.day.toString().padLeft(2, '0')}",
+            "${transactionDate.year.toString().padLeft(4, '0')}-${transactionDate.month.toString().padLeft(2, '0')}-${transactionDate.day.toString().padLeft(2, '0')}",
       };
 }

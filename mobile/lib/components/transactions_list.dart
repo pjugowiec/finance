@@ -91,7 +91,6 @@ class TransactionView extends StatelessWidget {
         Expanded(
           flex: 4,
           child: Container(
-            // margin: const EdgeInsets.only(right: 0.0),
             alignment: Alignment.center,
             child: RichText(
               textAlign: TextAlign.center,
@@ -106,7 +105,7 @@ class TransactionView extends StatelessWidget {
                   const TextSpan(text: '\n'),
                   const TextSpan(text: '\n'),
                   TextSpan(
-                      text: DateUtil.getTimeFromDateToNow(transaction.created),
+                      text: DateUtil.getTimeFromDateToNow(transaction.transactionDate),
                       style:
                           const TextStyle(color: Colors.black, fontSize: 12)),
                 ],
