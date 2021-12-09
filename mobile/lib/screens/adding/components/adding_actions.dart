@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/date_select.dart';
+import 'package:mobile/components/rounded_button.dart';
+import 'package:mobile/components/rounded_input.dart';
 import 'package:mobile/model/balance/category.dart';
 import 'package:mobile/services/balance/category_rest_service.dart';
 import 'package:mobile/util/localization.dart';
 
 import '../../../constants.dart';
-import '../../date_select.dart';
-import '../../rounded_button.dart';
-import '../../rounded_input.dart';
 
 class AddingActions extends StatefulWidget {
   final TextEditingController dateInput;

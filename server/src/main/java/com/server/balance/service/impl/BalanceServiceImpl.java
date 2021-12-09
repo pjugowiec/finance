@@ -61,7 +61,7 @@ public class BalanceServiceImpl implements BalanceService {
     public BalanceSummary getSummary(final String username) {
         final BalanceSummary balanceSummary = balanceTransactionRepository.getSummary(username);
         if (balanceSummary == null || balanceSummary.balance() == null)
-            return new BalanceSummary(BigDecimal.valueOf(0.0), BigDecimal.valueOf(0.0), BigDecimal.valueOf(0.0));
+            return new BalanceSummary(BigDecimal.valueOf(0.0), BigDecimal.valueOf(0.0), BigDecimal.valueOf(0.000));
 
         return balanceSummary;
     }

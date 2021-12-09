@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/components/adding/add_income.dart';
 import 'package:mobile/components/app_icons.dart';
 import 'package:mobile/components/navigation.dart';
+import 'package:mobile/screens/adding/change_balance.dart';
 
 import '../../../constants.dart';
 
@@ -20,8 +20,8 @@ class BalanceActions extends StatelessWidget {
           child: FloatingActionButton(
             heroTag: "income",
             child: const Icon(AppIcons.income),
-            onPressed: () =>
-                NavigationUtil.pushToNavigator(context, const AddIncome()),
+            onPressed: () => NavigationUtil.pushToNavigator(
+                context, const ChangeBalance(isIncome: true)),
             backgroundColor: PRIMARY_COLOR,
           ),
         ),
@@ -30,7 +30,8 @@ class BalanceActions extends StatelessWidget {
           child: FloatingActionButton(
             heroTag: "expense",
             child: const Icon(AppIcons.expense),
-            onPressed: () => null, //todo
+            onPressed: () => NavigationUtil.pushToNavigator(
+                context, const ChangeBalance(isIncome: false)),
             backgroundColor: PRIMARY_COLOR,
           ),
         ),

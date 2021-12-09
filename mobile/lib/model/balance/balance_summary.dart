@@ -16,9 +16,9 @@ class BalanceSummaryModel {
   double expenses;
 
   factory BalanceSummaryModel.fromJson(Map<String, dynamic> json) => BalanceSummaryModel(
-    balance: json["balance"],
-    income: json["income"],
-    expenses: json["expenses"],
+    balance: json["balance"] ?? 0.0,
+    income: json["income"] ?? 0.0,
+    expenses: json["expenses"] ?? 0.0,
   );
 
   Map<String, dynamic> toJson() => {
