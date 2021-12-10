@@ -23,6 +23,7 @@ dependencies:
   settings_ui: ^1.0.0
   jiffy: ^4.1.0
   intl: ^0.17.0
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:

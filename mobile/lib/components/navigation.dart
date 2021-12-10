@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/constants.dart';
 import 'package:mobile/screens/balance/balance_screen.dart';
+import 'package:mobile/screens/report/report_screen.dart';
 import 'package:mobile/screens/settings/settings_screen.dart';
 
 class Navigation extends StatefulWidget {
@@ -67,7 +68,7 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                // updateTabSelection(2, Balance());
+                updateTabSelection(2, ReportScreen());
               },
               iconSize: 27.0,
               icon: Icon(
