@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/baseappbar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
-import 'package:mobile/constants.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
 
-class ReportScreen extends StatefulWidget {
+import '../../constants.dart';
+
+class TransactionScreen extends StatefulWidget {
+  const TransactionScreen({Key? key}) : super(key: key);
+
   @override
-  State<StatefulWidget> createState() => _ReportScreenState();
+  State<StatefulWidget> createState() => _TransactionScreenState();
+
 }
 
-class _ReportScreenState extends State<ReportScreen> {
+class _TransactionScreenState extends State<TransactionScreen> {
   bool clickedCentreFAB = false;
 
   @override
@@ -16,8 +21,14 @@ class _ReportScreenState extends State<ReportScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: BaseAppBar(
+        title: Text('title', style: TextStyle(color: Colors.black)),
+        appBar: AppBar(),
+        backgroundColor: Colors.white,
+        widgets: [],
+      ),
       backgroundColor: Colors.white,
-      bottomNavigationBar: Navigation(selectedIndex: 2),
+      bottomNavigationBar: Navigation(selectedIndex: 1),
       body: Stack(
         children: <Widget>[
           // Expanded(child: Container),
@@ -33,7 +44,7 @@ class _ReportScreenState extends State<ReportScreen> {
               ),
               decoration: BoxDecoration(
                 borderRadius:
-                    BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
+                BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

@@ -4,6 +4,7 @@ import 'package:mobile/constants.dart';
 import 'package:mobile/screens/balance/balance_screen.dart';
 import 'package:mobile/screens/report/report_screen.dart';
 import 'package:mobile/screens/settings/settings_screen.dart';
+import 'package:mobile/screens/transaction/transations_screen.dart';
 
 class Navigation extends StatefulWidget {
   int selectedIndex = 0;
@@ -55,7 +56,7 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                // updateTabSelection(1, null);
+                updateTabSelection(1, const TransactionScreen());
               },
               iconSize: 27.0,
               icon: Icon(

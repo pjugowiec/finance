@@ -24,7 +24,7 @@ class _BalanceSummaryState extends State<BalanceSummary> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 6,
+      flex: 7,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -39,7 +39,7 @@ class _BalanceSummaryState extends State<BalanceSummary> {
         child: Column(
           children: [
             Expanded(
-              flex: 2,
+              flex: 5,
               child: FutureBuilder<BalanceSummaryModel>(
                 future: summary,
                 builder: (context, snapshot) {
@@ -55,7 +55,7 @@ class _BalanceSummaryState extends State<BalanceSummary> {
               ),
             ),
             Expanded(
-              flex: 4,
+              flex: 6,
               child: Container(
                 alignment: Alignment.topCenter,
                 child: FutureBuilder<BalanceSummaryModel>(
@@ -74,10 +74,11 @@ class _BalanceSummaryState extends State<BalanceSummary> {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 5,
               child: Container(
                 alignment: Alignment.center,
                 // color: Colors.blue,
+                // margin: const EdgeInsets.only(bottom: 70.0),
                 padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                 child: FutureBuilder<BalanceSummaryModel>(
                   future: summary,
@@ -130,7 +131,7 @@ class ConditionBalance extends StatelessWidget {
             children: [
               TextSpan(
                 text: 'DASHBOARD'.i18n,
-                style: const TextStyle(fontSize: 22, color: Colors.black),
+                style: const TextStyle(fontSize: 20, color: Colors.black),
               ),
               // const TextSpan(text: '\n'),
               // TextSpan(

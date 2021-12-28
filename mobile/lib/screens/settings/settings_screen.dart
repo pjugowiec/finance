@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/baseappbar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
+import 'package:mobile/util/localization.dart';
 
 import '../../constants.dart';
 import 'components/settings_sections.dart';
@@ -19,6 +21,13 @@ class SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: BaseAppBar(
+        title: Text('SETTINGS'.i18n,
+            style: const TextStyle(color: Colors.black)),
+        appBar: AppBar(),
+        backgroundColor: Colors.white,
+        widgets: [],
+      ),
       backgroundColor: Colors.white,
       bottomNavigationBar: Navigation(selectedIndex: 3),
       body: Stack(

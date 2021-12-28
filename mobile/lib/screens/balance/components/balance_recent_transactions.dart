@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/navigation.dart';
 import 'package:mobile/components/transactions_list.dart';
+import 'package:mobile/screens/transaction/transations_screen.dart';
 import 'package:mobile/util/localization.dart';
 
 class BalanceRecentTransactions extends StatefulWidget {
@@ -49,7 +51,8 @@ class BalanceRecentTransactionsText extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(right: 35),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => NavigationUtil.pushToNavigator(
+                    context, const TransactionScreen()),
                 child: Text('SEE_ALL'.i18n),
                 style: TextButton.styleFrom(
                     primary: Colors.black,
