@@ -12,13 +12,17 @@ jobs:
       - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
 
       - name: Install dependencies
+        working-directory: mobile
         run: dart pub get
 
       - name: Verify formatting
+        working-directory: mobile
         run: dart format --output=none --set-exit-if-changed .
 
       - name: Analyze project source
+        working-directory: mobile
         run: dart analyze
 
       - name: Run tests
+        working-directory: mobile
         run: dart test
