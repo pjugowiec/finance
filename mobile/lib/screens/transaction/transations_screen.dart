@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components/baseappbar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
+import 'package:mobile/util/localization.dart';
 
 import '../../constants.dart';
 
@@ -10,7 +11,6 @@ class TransactionScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _TransactionScreenState();
-
 }
 
 class _TransactionScreenState extends State<TransactionScreen> {
@@ -22,7 +22,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
     return Scaffold(
       appBar: BaseAppBar(
-        title: Text('title', style: TextStyle(color: Colors.black)),
+        title: Text(
+          'RECENT_TRANSACTION'.i18n,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
         appBar: AppBar(),
         backgroundColor: Colors.white,
         widgets: [],
@@ -31,7 +38,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
       bottomNavigationBar: Navigation(selectedIndex: 1),
       body: Stack(
         children: <Widget>[
-          // Expanded(child: Container),
+          Expanded(
+            child: Container(
+              color: Colors.red,
+            ),
+          ),
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: AnimatedContainer(
@@ -44,7 +55,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
               decoration: BoxDecoration(
                 borderRadius:
-                BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
+                    BorderRadius.circular(clickedCentreFAB ? 0.0 : 300.0),
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,

@@ -17,7 +17,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title,
       actions: widgets,
       backgroundColor: Colors.white,
-      elevation: 5,
+      elevation: 1,
     );
   }
 
