@@ -1,5 +1,5 @@
-name: CI
-on: [push]
+name: CI-server
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,6 +10,7 @@ jobs:
         with:
           java-version: 17
           distribution: 'adopt'
+          cache: gradle
       - name: Build with Gradle
         working-directory: server
         run: ./gradlew build
