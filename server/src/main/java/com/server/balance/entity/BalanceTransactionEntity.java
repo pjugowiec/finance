@@ -35,7 +35,7 @@ public class BalanceTransactionEntity {
     @Column(name = "balance_flow")
     private BalanceFlow balanceFlow;
 
-    @Column(name = "created", nullable = false)
+    @Column(name = "created", nullable = false, updatable = false)
     private LocalDateTime created;
 
     @Column(name = "transaction_date")
