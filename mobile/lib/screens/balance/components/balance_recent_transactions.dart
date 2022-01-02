@@ -52,7 +52,7 @@ class BalanceRecentTransactionsText extends StatelessWidget {
               margin: const EdgeInsets.only(right: 35),
               child: TextButton(
                 onPressed: () => NavigationUtil.pushToNavigator(
-                    context, const TransactionScreen()),
+                    context, TransactionScreen()),
                 child: Text('SEE_ALL'.i18n),
                 style: TextButton.styleFrom(
                     primary: Colors.black,

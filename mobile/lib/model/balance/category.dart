@@ -22,4 +22,15 @@ class Category {
     "id": id,
     "value": value,
   };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Category &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          value == other.value;
+
+  @override
+  int get hashCode => id.hashCode ^ value.hashCode;
 }

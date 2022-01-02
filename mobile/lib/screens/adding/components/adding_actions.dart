@@ -9,6 +9,7 @@ import 'package:mobile/util/localization.dart';
 import '../../../constants.dart';
 
 class AddingActions extends StatefulWidget {
+
   final TextEditingController dateInput;
   final TextEditingController descriptionInput;
   int chosedCategory = 0;

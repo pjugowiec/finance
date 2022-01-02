@@ -56,7 +56,7 @@ class NavigationState extends State<Navigation> {
             ),
             IconButton(
               onPressed: () {
-                updateTabSelection(1, const TransactionScreen());
+                updateTabSelection(1, TransactionScreen());
               },
               iconSize: 27.0,
               icon: Icon(
