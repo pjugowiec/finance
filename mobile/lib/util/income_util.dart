@@ -8,4 +8,8 @@ class IncomeUtil {
     return (currentValue - newValue).toStringAsFixed(2);
   }
 
+  static String getFixedStringFromDouble(double value) {
+    return value.toStringAsFixed(2);
+  }
+
 }

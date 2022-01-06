@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/baseappbar_navigation.dart';
-import 'package:mobile/components/bottom_dialog.dart';
 import 'package:mobile/components/navigation.dart';
-import 'package:mobile/model/balance/category.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
 import 'package:mobile/util/localization.dart';
 
 import '../../constants.dart';
-import 'components/category_bottom_filter.dart';
+import 'components/transactions_filters.dart';
 
 class TransactionScreen extends StatefulWidget {
-  List<Category> selectedCategories = [];
 
   TransactionScreen({Key? key}) : super(key: key);
 
@@ -21,9 +18,6 @@ class TransactionScreen extends StatefulWidget {
 class _TransactionScreenState extends State<TransactionScreen> {
   bool clickedCentreFAB = false;
 
-  void categoriesFilter(List<Category> selectedCategories) {
-    widget.selectedCategories = selectedCategories;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +26,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     return Scaffold(
       appBar: BaseAppBar(
         title: Text(
-          'RECENT_TRANSACTION'.i18n,
+          'TRANSACTIONS'.i18n,
           style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -49,46 +43,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: <Widget>[
           Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ActionChip(
-                    onPressed: () => BottomDialog(
-                            CategoryBottomFilter(callback: categoriesFilter),
-                            context)
-                        .showBottomDialog(),
-                    avatar: const Icon(
-                      Icons.category,
-                      size: 20,
-                    ),
-                    label: Text('CATEGORY'.i18n),
-                  ),
-                  ActionChip(
-                    onPressed: () => null,
-                    avatar: const Icon(
-                      Icons.create,
-                      size: 20,
-                    ),
-                    label: Text('AMOUNT'.i18n),
-                  ),
-                  ActionChip(
-                    onPressed: () => null,
-                    avatar: const Icon(
-                      Icons.calendar_today,
-                      size: 20,
-                    ),
-                    label: Text('DATE'.i18n),
-                  ),
-                  ActionChip(
-                    onPressed: () => null,
-                    avatar: const Icon(
-                      Icons.sort,
-                      size: 20,
-                    ),
-                    label: Text('SORT'.i18n),
-                  ),
-                ],
-              ),
+              TransactionsFilters(),
               Expanded(
                 flex: 10,
                 child: Container(color: Colors.red),

@@ -81,7 +81,10 @@ extension Localization on String {
       "CATEGORY": "Category",
       "SORT": "Sort",
       "AMOUNT": "Amount",
-      "DATE": "Date"
+      "DATE": "Date",
+      "TRANSACTIONS": "Transactions",
+      "MIN_AMOUNT": "Minimum amount",
+      "MAX_AMOUNT": "Maximum amount"
     },
     "pl_pl": {
       "ENGLISH": "Angielski",
