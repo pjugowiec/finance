@@ -84,7 +84,9 @@ extension Localization on String {
       "DATE": "Date",
       "TRANSACTIONS": "Transactions",
       "MIN_AMOUNT": "Minimum amount",
-      "MAX_AMOUNT": "Maximum amount"
+      "MAX_AMOUNT": "Maximum amount",
+      "FROM": "From",
+      "TO": "To"
     },
     "pl_pl": {
       "ENGLISH": "Angielski",

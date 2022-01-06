@@ -3,8 +3,8 @@ import 'package:mobile/model/balance/category.dart';
 import 'package:mobile/services/balance/category_rest_service.dart';
 
 class CategoryBottomFilter extends StatefulWidget {
-  final Function callback;
-  const CategoryBottomFilter({Key? key, required this.callback}) : super(key: key);
+  final Function categoriesFilterCallback;
+  const CategoryBottomFilter({Key? key, required this.categoriesFilterCallback}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CategoryBottomFilterState();
@@ -15,7 +15,7 @@ class _CategoryBottomFilterState extends State<CategoryBottomFilter> {
 
   @override
   void deactivate() {
-    widget.callback(List.of(_selectedItems.values));
+    widget.categoriesFilterCallback(List.of(_selectedItems.values));
   }
 
   @override

@@ -5,9 +5,9 @@ import 'package:mobile/util/localization.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class AmountBottomFilter extends StatefulWidget {
-  final Function callback;
+  final Function amountFilterCallback;
 
-  const AmountBottomFilter({Key? key, required this.callback})
+  const AmountBottomFilter({Key? key, required this.amountFilterCallback})
       : super(key: key);
 
   @override
@@ -18,6 +18,12 @@ class _AmountBottomFilterState extends State<AmountBottomFilter> {
   SfRangeValues _currentRangeValues = const SfRangeValues(0.0, 5000.0);
   String _roundedMinValue = "0.00";
   String _roundedMaxValue = "5000.00";
+
+  @override
+  void deactivate() {
+    widget.amountFilterCallback(
+        _currentRangeValues.start, _currentRangeValues.end);
+  }
 
   @override
   Widget build(BuildContext context) {

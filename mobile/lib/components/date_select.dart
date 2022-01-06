@@ -32,6 +32,7 @@ class _DateSelectState extends State<DateSelect> {
         controller: widget.controller,
         cursorColor: widget.iconColor,
         decoration: InputDecoration(
+
           icon: Icon(
             Icons.calendar_today,
             color: widget.iconColor,
