@@ -1,15 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/model/balance/transaction_short.dart';
+import 'package:mobile/model/transactions/transactions_request.dart';
 import 'package:mobile/screens/balance/balance_screen.dart';
 import 'package:mobile/services/balance/transactions_rest_service.dart';
 import 'package:mobile/services/balance/transactions_service.dart';
 import 'package:mobile/util/date_util.dart';
 import 'package:mobile/util/shared_preferences.dart';
+import 'package:mobile/util/sort_util.dart';
 
 class TransactionListView extends StatefulWidget {
   final int count;
+  final double maxAmount;
+  final double minAmount;
+  final List<int> categories;
+  final DateTime dateFrom;
+  final DateTime dateTo;
+  final String sort;
+  late TransactionsRequest request;
 
-  const TransactionListView({Key? key, required this.count}) : super(key: key);
+  TransactionListView(
+      {Key? key,
+      required this.count,
+      required this.maxAmount,
+      required this.minAmount,
+      required this.categories,
+      required this.dateFrom,
+      required this.dateTo,
+      required this.sort})
+      : super(key: key) {
+      request = TransactionsRequest(
+          minAmount: minAmount,
+          maxAmount: maxAmount,
+          categories: categories,
+          dateFrom: dateFrom,
+          dateTo: dateTo,
+          sort: sort,
+          count: count);
+  }
+
 
   @override
   State<StatefulWidget> createState() => TransactionListViewState();
@@ -18,7 +46,8 @@ class TransactionListView extends StatefulWidget {
 class TransactionListViewState extends State<TransactionListView> {
   late Future<List<TransactionShort>> transactionsShort =
       TransactionsRestService().getTransactions(
-          context, widget.count, Balance.CURRENT_DATE_SELECTED, DateTime.now());
+          widget.request,
+          context);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +134,8 @@ class TransactionView extends StatelessWidget {
                   const TextSpan(text: '\n'),
                   const TextSpan(text: '\n'),
                   TextSpan(
-                      text: DateUtil.getTimeFromDateToNow(transaction.transactionDate),
+                      text: DateUtil.getTimeFromDateToNow(
+                          transaction.transactionDate),
                       style:
                           const TextStyle(color: Colors.black, fontSize: 12)),
                 ],

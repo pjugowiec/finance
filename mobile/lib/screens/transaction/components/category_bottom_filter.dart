@@ -4,7 +4,13 @@ import 'package:mobile/services/balance/category_rest_service.dart';
 
 class CategoryBottomFilter extends StatefulWidget {
   final Function categoriesFilterCallback;
-  const CategoryBottomFilter({Key? key, required this.categoriesFilterCallback}) : super(key: key);
+  final List<int> categoryIds;
+
+  const CategoryBottomFilter(
+      {Key? key,
+      required this.categoriesFilterCallback,
+      required this.categoryIds})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CategoryBottomFilterState();
@@ -15,7 +21,8 @@ class _CategoryBottomFilterState extends State<CategoryBottomFilter> {
 
   @override
   void deactivate() {
-    widget.categoriesFilterCallback(List.of(_selectedItems.values));
+    widget.categoriesFilterCallback(
+        List.of(_selectedItems.values.map((e) => e.id)));
   }
 
   @override
@@ -41,7 +48,8 @@ class _CategoryBottomFilterState extends State<CategoryBottomFilter> {
                 Category category = snapshot.data![index];
                 return ListTile(
                   title: Text(category.value),
-                  trailing: _selectedItems.containsKey(index)
+                  trailing: _selectedItems.containsKey(index) ||
+                          widget.categoryIds.contains(category.id)
                       ? const Icon(
                           Icons.check,
                           color: Colors.black,

@@ -86,7 +86,11 @@ extension Localization on String {
       "MIN_AMOUNT": "Minimum amount",
       "MAX_AMOUNT": "Maximum amount",
       "FROM": "From",
-      "TO": "To"
+      "TO": "To",
+      "SORT_FIELD": "Sort field",
+      "SORT_ORDER": "Order",
+      "INCREASING": "Increasing ASC",
+      "DECREASING": "Decreasing DESC"
     },
     "pl_pl": {
       "ENGLISH": "Angielski",

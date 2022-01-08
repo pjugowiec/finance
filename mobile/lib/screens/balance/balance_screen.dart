@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/components/baseappbar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
 import 'package:mobile/screens/balance/components/balance_date_chip.dart';
 import 'package:mobile/util/localization.dart';

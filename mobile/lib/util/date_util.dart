@@ -1,12 +1,13 @@
 import 'package:jiffy/jiffy.dart';
 
 class DateUtil {
+  static DateTime OLD_DATE = DateTime.utc(1800, 1, 1, 1, 1, 1);
+
   static String getTimeFromDateToNow(DateTime date) {
     num minutes = Jiffy().diff(date, Units.MINUTE);
 
     return _addPostFixForTime(minutes);
   }
-
 
   static String _addPostFixForTime(num minutes) {
     if (minutes < 0) throw Exception('Not supported value');

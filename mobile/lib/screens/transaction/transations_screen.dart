@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/baseappbar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
+import 'package:mobile/components/transactions_list.dart';
+import 'package:mobile/model/transactions/transactions_request.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
+import 'package:mobile/util/date_util.dart';
+import 'package:mobile/util/income_util.dart';
 import 'package:mobile/util/localization.dart';
+import 'package:mobile/util/sort_util.dart';
 
 import '../../constants.dart';
 import 'components/transactions_filters.dart';
 
 class TransactionScreen extends StatefulWidget {
+  double minAmount = 0.0;
+  double maxAmount = IncomeUtil.MAX_VALUE;
+  List<int> categories = [];
+  DateTime dateFrom = DateUtil.OLD_DATE;
+  DateTime dateTo = DateUtil.OLD_DATE;
+  String sort = SortUtil.DEFAULT_SORT;
+  int count = 20;
 
   TransactionScreen({Key? key}) : super(key: key);
 
@@ -18,6 +30,39 @@ class TransactionScreen extends StatefulWidget {
 class _TransactionScreenState extends State<TransactionScreen> {
   bool clickedCentreFAB = false;
 
+  void requestCallback(
+      double? minAmount,
+      double? maxAmount,
+      List<int>? categories,
+      DateTime? dateFrom,
+      DateTime? dateTo,
+      String? sort) {
+    setState(() {
+      if (minAmount != null) {
+        widget.minAmount = minAmount;
+      }
+
+      if (maxAmount != null) {
+        widget.maxAmount = maxAmount;
+      }
+
+      if (categories != null) {
+        widget.categories = categories;
+      }
+
+      if (dateFrom != null) {
+        widget.dateFrom = dateFrom;
+      }
+
+      if (dateTo != null) {
+        widget.dateTo = dateTo;
+      }
+
+      if (sort != null) {
+        widget.sort = sort;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +88,27 @@ class _TransactionScreenState extends State<TransactionScreen> {
         children: <Widget>[
           Column(
             children: [
-              TransactionsFilters(),
+              TransactionsFilters(
+                requestCallback: requestCallback,
+                request: TransactionsRequest(
+                    minAmount: widget.minAmount,
+                    maxAmount: widget.maxAmount,
+                    categories: widget.categories,
+                    dateFrom: widget.dateFrom,
+                    dateTo: widget.dateTo,
+                    sort: widget.sort,
+                    count: widget.count),
+              ),
               Expanded(
                 flex: 10,
-                child: Container(color: Colors.red),
+                child: TransactionListView(
+                    categories: widget.categories,
+                    dateFrom: widget.dateFrom,
+                    dateTo: widget.dateTo,
+                    minAmount: widget.minAmount,
+                    maxAmount: widget.maxAmount,
+                    sort: widget.sort,
+                    count: 20),
               ),
             ],
           ),

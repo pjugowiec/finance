@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile/components/date_select.dart';
 import 'package:mobile/constants.dart';
+import 'package:mobile/util/date_util.dart';
 import 'package:mobile/util/localization.dart';
 
 class DateBottomFilter extends StatefulWidget {
   final Function dateFilterCallback;
+  final DateTime startDate;
+  final DateTime endDate;
 
-  const DateBottomFilter({Key? key, required this.dateFilterCallback})
+  DateBottomFilter(
+      {Key? key,
+      required this.dateFilterCallback,
+      required this.startDate,
+      required this.endDate})
       : super(key: key);
 
   @override
@@ -16,6 +24,18 @@ class DateBottomFilter extends StatefulWidget {
 class _DateBottomFilterState extends State<DateBottomFilter> {
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
+
+  @override
+  void initState() {
+    if (DateUtil.OLD_DATE != widget.startDate) {
+      startDateController.text =
+          DateFormat('yyyy-MM-dd').format(widget.startDate);
+    }
+
+    if (DateUtil.OLD_DATE != widget.endDate)  {
+      endDateController.text = DateFormat('yyyy-MM-dd').format(widget.endDate);
+    }
+  }
 
   @override
   void deactivate() {
@@ -52,7 +72,7 @@ class _DateBottomFilterState extends State<DateBottomFilter> {
           ),
           DateSelect(
             iconColor: PRIMARY_COLOR,
-            controller: startDateController,
+            controller: endDateController,
             backgroundColor: SECONDARY_COLOR,
             hintText: "TO".i18n,
           ),

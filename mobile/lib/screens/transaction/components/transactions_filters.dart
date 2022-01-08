@@ -1,39 +1,46 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/bottom_dialog.dart';
-import 'package:mobile/model/balance/category.dart';
+import 'package:mobile/model/transactions/transactions_request.dart';
 import 'package:mobile/screens/transaction/components/amount_bottom_filter.dart';
 import 'package:mobile/screens/transaction/components/date_bottom_filter.dart';
+import 'package:mobile/screens/transaction/components/sort_bottom.dart';
 import 'package:mobile/util/localization.dart';
+import 'package:mobile/util/sort_util.dart';
 
 import 'category_bottom_filter.dart';
 
 class TransactionsFilters extends StatefulWidget {
-  List<Category> selectedCategories = [];
-  double maxAmount = 0.0;
-  double minAmount = 0.0;
-  DateTime? start = null;
-  DateTime? end = null;
+  final Function requestCallback;
+  final TransactionsRequest request;
 
-  TransactionsFilters({Key? key}) : super(key: key);
+  TransactionsFilters(
+      {Key? key, required this.requestCallback, required this.request})
+      : super(key: key);
 
-  void categoriesFilter(List<Category> selectedCategories) {
-    selectedCategories = selectedCategories;
+  void categoriesFilter(List<int> selectedCategories) {
+    requestCallback(null, null, selectedCategories, null, null, null);
   }
 
   void amountFilter(double minAmount, double maxAmount) {
-    minAmount = minAmount;
-    maxAmount = maxAmount;
+    requestCallback(minAmount, maxAmount, null, null, null, null);
   }
 
   void dateFilter(var start, var end) {
-    if(start != null) {
-      this.start = start;
+    DateTime? startDate;
+    if (start != null) {
+      startDate = start;
     }
+    DateTime? endDate;
+    if (end != null) {
+      endDate = end;
+    }
+    requestCallback(null, null, null, startDate, endDate, null);
+  }
 
-    if(end != null) {
-      this.end = end;
-    }
+  void sortCallback(String field, String direction) {
+    requestCallback(null, null, null, null, null,
+        SortUtil.parseSort(field, direction).toLowerCase());
   }
 
   @override
@@ -49,7 +56,9 @@ class _TransactionsFilterState extends State<TransactionsFilters> {
         ActionChip(
           onPressed: () => BottomDialog(
                   CategoryBottomFilter(
-                      categoriesFilterCallback: widget.categoriesFilter),
+                    categoriesFilterCallback: widget.categoriesFilter,
+                    categoryIds: widget.request.categories,
+                  ),
                   context)
               .showBottomDialog(),
           avatar: const Icon(
@@ -60,10 +69,13 @@ class _TransactionsFilterState extends State<TransactionsFilters> {
         ),
         ActionChip(
           onPressed: () => BottomDialog(
-              DateBottomFilter(
-                dateFilterCallback: widget.dateFilter,
-              ),
-              context).showBottomDialog(),
+                  DateBottomFilter(
+                    dateFilterCallback: widget.dateFilter,
+                    endDate: widget.request.dateTo,
+                    startDate: widget.request.dateFrom,
+                  ),
+                  context)
+              .showBottomDialog(),
           avatar: const Icon(
             Icons.calendar_today,
             size: 18,
@@ -72,7 +84,11 @@ class _TransactionsFilterState extends State<TransactionsFilters> {
         ),
         ActionChip(
           onPressed: () => BottomDialog(
-                  AmountBottomFilter(amountFilterCallback: widget.amountFilter),
+                  AmountBottomFilter(
+                    amountFilterCallback: widget.amountFilter,
+                    minAmount: widget.request.minAmount,
+                    maxAmount: widget.request.maxAmount,
+                  ),
                   context)
               .showBottomDialog(),
           avatar: const Icon(
@@ -82,7 +98,12 @@ class _TransactionsFilterState extends State<TransactionsFilters> {
           label: Text('AMOUNT'.i18n),
         ),
         ActionChip(
-          onPressed: () => null,
+          onPressed: () => BottomDialog(
+                  SortBottom(
+                    sortCallback: widget.sortCallback,
+                  ),
+                  context)
+              .showBottomDialog(),
           avatar: const Icon(
             Icons.sort,
             size: 18,

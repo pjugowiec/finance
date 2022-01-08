@@ -6,8 +6,14 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 class AmountBottomFilter extends StatefulWidget {
   final Function amountFilterCallback;
+  final double minAmount;
+  final double maxAmount;
 
-  const AmountBottomFilter({Key? key, required this.amountFilterCallback})
+  const AmountBottomFilter(
+      {Key? key,
+      required this.amountFilterCallback,
+      required this.minAmount,
+      required this.maxAmount})
       : super(key: key);
 
   @override
@@ -15,9 +21,16 @@ class AmountBottomFilter extends StatefulWidget {
 }
 
 class _AmountBottomFilterState extends State<AmountBottomFilter> {
-  SfRangeValues _currentRangeValues = const SfRangeValues(0.0, 5000.0);
-  String _roundedMinValue = "0.00";
-  String _roundedMaxValue = "5000.00";
+  SfRangeValues _currentRangeValues = const SfRangeValues(0.0, 20000.0);
+  String _roundedMinValue = "";
+  String _roundedMaxValue = "";
+
+  @override
+  void initState() {
+    _roundedMaxValue = widget.maxAmount.toString();
+    _roundedMinValue = widget.minAmount.toString();
+    _currentRangeValues = SfRangeValues(widget.minAmount, widget.maxAmount);
+  }
 
   @override
   void deactivate() {
@@ -59,8 +72,8 @@ class _AmountBottomFilterState extends State<AmountBottomFilter> {
                 top: 30.0, bottom: 10.0, left: 10.0, right: 10.0),
             child: SfRangeSlider(
               values: _currentRangeValues,
-              max: 5000,
-              min: 0,
+              max: widget.maxAmount,
+              min: widget.minAmount,
               showTicks: true,
               showLabels: true,
               enableTooltip: true,

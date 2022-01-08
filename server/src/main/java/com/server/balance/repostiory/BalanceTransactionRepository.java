@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,9 +37,14 @@ public interface BalanceTransactionRepository extends JpaRepository<BalanceTrans
             "JOIN e.categoryEntity c " +
             "JOIN e.userEntity u " +
             "WHERE (e.transactionDate BETWEEN :from AND :to) " +
+            "AND (c.id IN :categoryIds OR (:categoryIds) IS NULL) " +
+            "AND (e.balance BETWEEN :minAmount AND :maxAmount) " +
             "AND u.email = :username")
     List<Transaction> getTranslations(@Param("from")final LocalDateTime from,
                                       @Param("to")final LocalDateTime to,
                                       @Param("username")final String username,
+                                      @Param("categoryIds") final List<Long> categoryIds,
+                                      @Param("minAmount") final BigDecimal minAmount,
+                                      @Param("maxAmount") final BigDecimal maxAmount,
                                       Pageable page);
 }

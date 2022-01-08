@@ -32,13 +32,14 @@ public class BalanceController {
     }
 
     @GetMapping("/transactions")
-    public ResponseEntity<Collection<Transaction>> getTransactions(@Valid @ModelAttribute TransactionRequest transactionRequest, final HttpServletRequest request) {
+    public ResponseEntity<Collection<Transaction>> getTransactions(@Valid @ModelAttribute TransactionRequest transactionRequest,
+                                                                   final HttpServletRequest request) {
         final String username = getUsernameFromRequest(request);
         return ResponseEntity.ok(balanceService.getTranslations(transactionRequest, username));
     }
 
     @DeleteMapping("/transactions/{id}")
-    public ResponseEntity<Void> deleteTransaction(@PathVariable("id")final Long id) {
+    public ResponseEntity<Void> deleteTransaction(@PathVariable("id") final Long id) {
         balanceService.deleteTransaction(id);
         return ResponseEntity.noContent().build();
     }

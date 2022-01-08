@@ -14,14 +14,17 @@ import com.server.balance.service.BalanceService;
 import com.server.shared.entity.CurrencyEntity;
 import com.server.shared.exceptions.ValidationException;
 import com.server.shared.util.CommonErrorMessage;
+import com.server.shared.util.SortUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,10 +70,17 @@ public class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    public List<Transaction> getTranslations(TransactionRequest transactionRequest, String username) {
-        Pageable page = PageRequest.of(0, transactionRequest.count());
+    public List<Transaction> getTranslations(final TransactionRequest transactionRequest, final String username) {
+        final Sort sort = SortUtil.getSortByParsedSort(transactionRequest.sort());
+        final Pageable page = PageRequest.of(0, transactionRequest.count(), sort);
 
-        return balanceTransactionRepository.getTranslations(transactionRequest.from(), transactionRequest.to(), username, page);
+        return balanceTransactionRepository.getTranslations(transactionRequest.from(),
+                transactionRequest.to(),
+                username,
+                transactionRequest.categoriesIds(),
+                transactionRequest.minAmount(),
+                transactionRequest.maxAmount(),
+                page);
     }
 
     @Override

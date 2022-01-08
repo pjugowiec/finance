@@ -62,8 +62,7 @@ class _DateSelectState extends State<DateSelect> {
             String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
             setState(
               () {
-                widget.controller.text =
-                    formattedDate; //set output date to TextField value.
+                widget.controller.text = formattedDate;
               },
             );
           }
