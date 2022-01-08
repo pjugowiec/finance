@@ -7,12 +7,17 @@ import 'package:mobile/model/balance/transaction_short.dart';
 import 'package:mobile/model/transactions/transactions_request.dart';
 import 'package:mobile/services/auth/auth_service.dart';
 import 'package:mobile/util/alert_util.dart';
+import 'package:mobile/util/date_util.dart';
 import 'package:mobile/util/localization.dart';
 import 'package:mobile/util/request_util.dart';
 
 class TransactionsRestService {
   Future<List<TransactionShort>> getTransactions(
       TransactionsRequest request, BuildContext context) async {
+    if(DateUtil.OLD_DATE == request.dateTo) {
+      request.dateTo = DateTime.now();
+    }
+
     Map<String, dynamic> query = request.toJson();
 
     final response =

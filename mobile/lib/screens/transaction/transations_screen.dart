@@ -19,7 +19,7 @@ class TransactionScreen extends StatefulWidget {
   DateTime dateFrom = DateUtil.OLD_DATE;
   DateTime dateTo = DateUtil.OLD_DATE;
   String sort = SortUtil.DEFAULT_SORT;
-  int count = 20;
+  int count = 50;
 
   TransactionScreen({Key? key}) : super(key: key);
 
@@ -29,6 +29,7 @@ class TransactionScreen extends StatefulWidget {
 
 class _TransactionScreenState extends State<TransactionScreen> {
   bool clickedCentreFAB = false;
+  bool _filterChanged = false;
 
   void requestCallback(
       double? minAmount,
@@ -40,26 +41,32 @@ class _TransactionScreenState extends State<TransactionScreen> {
     setState(() {
       if (minAmount != null) {
         widget.minAmount = minAmount;
+        _filterChanged = true;
       }
 
       if (maxAmount != null) {
         widget.maxAmount = maxAmount;
+        _filterChanged = true;
       }
 
       if (categories != null) {
         widget.categories = categories;
+        _filterChanged = true;
       }
 
       if (dateFrom != null) {
         widget.dateFrom = dateFrom;
+        _filterChanged = true;
       }
 
       if (dateTo != null) {
         widget.dateTo = dateTo;
+        _filterChanged = true;
       }
 
       if (sort != null) {
         widget.sort = sort;
+        _filterChanged = true;
       }
     });
   }
@@ -102,13 +109,16 @@ class _TransactionScreenState extends State<TransactionScreen> {
               Expanded(
                 flex: 10,
                 child: TransactionListView(
-                    categories: widget.categories,
-                    dateFrom: widget.dateFrom,
-                    dateTo: widget.dateTo,
-                    minAmount: widget.minAmount,
-                    maxAmount: widget.maxAmount,
-                    sort: widget.sort,
-                    count: 20),
+                  filterChanged: _filterChanged,
+                  request: TransactionsRequest(
+                      minAmount: widget.minAmount,
+                      maxAmount: widget.maxAmount,
+                      categories: widget.categories,
+                      dateFrom: widget.dateFrom,
+                      dateTo: widget.dateTo,
+                      sort: widget.sort,
+                      count: widget.count),
+                ),
               ),
             ],
           ),

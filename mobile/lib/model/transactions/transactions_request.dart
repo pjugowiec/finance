@@ -43,6 +43,6 @@ class TransactionsRequest {
         "from": DateFormat('yyyy-MM-ddThh:mm:ss').format(dateFrom),
         "to": DateFormat('yyyy-MM-ddThh:mm:ss').format(dateTo),
         "sort": sort,
-        "count": count
+        "count": count.toString()
       };
 }

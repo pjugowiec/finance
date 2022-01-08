@@ -27,8 +27,8 @@ class _AmountBottomFilterState extends State<AmountBottomFilter> {
 
   @override
   void initState() {
-    _roundedMaxValue = widget.maxAmount.toString();
-    _roundedMinValue = widget.minAmount.toString();
+    _roundedMaxValue = IncomeUtil.getFixedStringFromDouble(widget.maxAmount);
+    _roundedMinValue = IncomeUtil.getFixedStringFromDouble(widget.minAmount);
     _currentRangeValues = SfRangeValues(widget.minAmount, widget.maxAmount);
   }
 
@@ -72,8 +72,8 @@ class _AmountBottomFilterState extends State<AmountBottomFilter> {
                 top: 30.0, bottom: 10.0, left: 10.0, right: 10.0),
             child: SfRangeSlider(
               values: _currentRangeValues,
-              max: widget.maxAmount,
-              min: widget.minAmount,
+              max: 1500.0,
+              min: 0.0,
               showTicks: true,
               showLabels: true,
               enableTooltip: true,
