@@ -11,7 +11,7 @@ class CategoryReportModel {
   });
 
   String category;
-  int value;
+  double value;
 
   factory CategoryReportModel.fromJson(Map<String, dynamic> json) => CategoryReportModel(
     category: json["category"],

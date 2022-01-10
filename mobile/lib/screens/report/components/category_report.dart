@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/model/reports/category_report.dart';
+import 'package:mobile/model/reports/category_report_model.dart';
 import 'package:mobile/services/reports/report_rest_service.dart';
 import 'package:mobile/util/income_util.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -24,9 +24,9 @@ class _CategoryReportState extends State<CategoryReport> {
       builder: (context, data) {
         if (data.hasData) {
           Map<String, double> pieData = {
-            for (var e in data.data!)
+            for (CategoryReportModel e in data.data!)
               e.category:
-                  double.parse(IncomeUtil.getFixedStringFromDouble(e as double))
+                  double.parse(IncomeUtil.getFixedStringFromDouble(e.value))
           };
           return PieChart(
             dataMap: pieData,
@@ -36,7 +36,7 @@ class _CategoryReportState extends State<CategoryReport> {
             initialAngleInDegree: 0,
             chartType: ChartType.disc,
             ringStrokeWidth: 32,
-            centerText: "HYBRID",
+            // centerText: "HYBRID",
             legendOptions: const LegendOptions(
               showLegendsInRow: true,
               legendPosition: LegendPosition.bottom,
@@ -48,7 +48,7 @@ class _CategoryReportState extends State<CategoryReport> {
             chartValuesOptions: const ChartValuesOptions(
               showChartValueBackground: true,
               showChartValues: true,
-              showChartValuesInPercentage: false,
+              showChartValuesInPercentage: true,
               showChartValuesOutside: false,
               decimalPlaces: 2,
             ),

@@ -28,7 +28,7 @@ class TransactionsRestService {
     });
 
     if (response.statusCode == 200) {
-      final parsed = jsonDecode(response.body) as List<dynamic>;
+      final parsed = jsonDecode(utf8.decode(response.bodyBytes)) as List<dynamic>;
 
       return parsed.map((data) => TransactionShort.fromJson(data)).toList();
     } else {
