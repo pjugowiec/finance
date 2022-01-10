@@ -72,7 +72,7 @@ class _AmountBottomFilterState extends State<AmountBottomFilter> {
                 top: 30.0, bottom: 10.0, left: 10.0, right: 10.0),
             child: SfRangeSlider(
               values: _currentRangeValues,
-              max: 1500.0,
+              max: 150000.0,
               min: 0.0,
               showTicks: true,
               showLabels: true,

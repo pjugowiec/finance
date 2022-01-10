@@ -17,5 +17,5 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
             "LEFT JOIN e.userEntity u " +
             "WHERE e.to IS NULL " +
             "AND (u.email = :username OR e.userEntity IS NULL)")
-    List<Category> getCategories(@Param("username") final String userId);
+    List<Category> getCategories(@Param("username") final String username);
 }

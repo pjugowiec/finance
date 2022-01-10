@@ -90,7 +90,8 @@ extension Localization on String {
       "SORT_FIELD": "Sort field",
       "SORT_ORDER": "Order",
       "INCREASING": "Increasing ASC",
-      "DECREASING": "Decreasing DESC"
+      "DECREASING": "Decreasing DESC",
+
     },
     "pl_pl": {
       "ENGLISH": "Angielski",

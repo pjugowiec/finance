@@ -1,6 +1,7 @@
 package com.server.balance.entity;
 
 import com.server.admin.entity.UserEntity;
+import com.server.balance.model.reports.CategoryReportModel;
 import com.server.shared.entity.CurrencyEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,10 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@SqlResultSetMapping(name = "CategoryReportModel", classes = {
+        @ConstructorResult(targetClass = CategoryReportModel.class,
+                columns = {@ColumnResult(name = "category", type = String.class), @ColumnResult(name = "value", type = Double.class)})
+})
 public class BalanceTransactionEntity {
 
     @Id

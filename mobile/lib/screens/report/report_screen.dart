@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/baseappbar_navigation.dart';
 import 'package:mobile/components/navigation.dart';
+import 'package:mobile/components/select_menu_appbar.dart';
 import 'package:mobile/constants.dart';
+import 'package:mobile/model/shared/select_menu_model.dart';
 import 'package:mobile/screens/balance/components/balance_actions.dart';
+import 'package:mobile/screens/balance/components/balance_summary.dart';
+import 'package:mobile/screens/report/components/category_report.dart';
+import 'package:mobile/screens/report/components/month_report.dart';
+import 'package:mobile/screens/report/components/year_report.dart';
+import 'package:mobile/util/localization.dart';
 
 class ReportScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _ReportScreenState();
+
+  void moveToSelectedPage(SelectMenuModel model) {}
 }
 
 class _ReportScreenState extends State<ReportScreen> {
@@ -16,11 +26,30 @@ class _ReportScreenState extends State<ReportScreen> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: BaseAppBar(
+        title: Text(
+          'REPORTS'.i18n,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
+        appBar: AppBar(),
+        backgroundColor: Colors.white,
+        widgets: [],
+      ),
       backgroundColor: Colors.white,
       bottomNavigationBar: Navigation(selectedIndex: 2),
       body: Stack(
         children: <Widget>[
-          // Expanded(child: Container),
+          PageView(
+            children: [
+              CategoryReport(),
+              MonthReport(),
+              YearReport(),
+            ],
+          ),
           Align(
             alignment: FractionalOffset.bottomCenter,
             child: AnimatedContainer(
