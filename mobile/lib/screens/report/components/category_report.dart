@@ -1,9 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:mobile/components/report_component.dart';
 import 'package:mobile/model/reports/category_report_model.dart';
 import 'package:mobile/services/reports/report_rest_service.dart';
 import 'package:mobile/util/income_util.dart';
+import 'package:mobile/util/localization.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class CategoryReport extends StatefulWidget {
@@ -28,29 +30,32 @@ class _CategoryReportState extends State<CategoryReport> {
               e.category:
                   double.parse(IncomeUtil.getFixedStringFromDouble(e.value))
           };
-          return PieChart(
-            dataMap: pieData,
-            animationDuration: const Duration(milliseconds: 800),
-            chartLegendSpacing: 50,
-            chartRadius: MediaQuery.of(context).size.width,
-            initialAngleInDegree: 0,
-            chartType: ChartType.disc,
-            ringStrokeWidth: 32,
-            // centerText: "HYBRID",
-            legendOptions: const LegendOptions(
-              showLegendsInRow: true,
-              legendPosition: LegendPosition.bottom,
-              showLegends: true,
-              legendTextStyle: TextStyle(
-                fontWeight: FontWeight.bold,
+          return ReportComponent(
+            description: 'CATEGORY_REPORT_DESCRIPTION'.i18n,
+            widget: PieChart(
+              dataMap: pieData,
+              animationDuration: const Duration(milliseconds: 800),
+              chartLegendSpacing: 30,
+              chartRadius: MediaQuery.of(context).size.width,
+              initialAngleInDegree: 0,
+              chartType: ChartType.disc,
+              ringStrokeWidth: 32,
+              // centerText: "HYBRID",
+              legendOptions: const LegendOptions(
+                showLegendsInRow: true,
+                legendPosition: LegendPosition.bottom,
+                showLegends: true,
+                legendTextStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            chartValuesOptions: const ChartValuesOptions(
-              showChartValueBackground: true,
-              showChartValues: true,
-              showChartValuesInPercentage: true,
-              showChartValuesOutside: false,
-              decimalPlaces: 2,
+              chartValuesOptions: const ChartValuesOptions(
+                showChartValueBackground: true,
+                showChartValues: true,
+                showChartValuesInPercentage: true,
+                showChartValuesOutside: false,
+                decimalPlaces: 2,
+              ),
             ),
           );
         } else {

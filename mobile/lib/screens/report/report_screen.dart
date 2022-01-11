@@ -45,9 +45,9 @@ class _ReportScreenState extends State<ReportScreen> {
         children: <Widget>[
           PageView(
             children: [
-              CategoryReport(),
-              MonthReport(),
-              YearReport(),
+              const CategoryReport(),
+              // MonthReport(),
+              const YearReport(),
             ],
           ),
           Align(

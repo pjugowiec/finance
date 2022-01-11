@@ -91,6 +91,9 @@ extension Localization on String {
       "SORT_ORDER": "Order",
       "INCREASING": "Increasing ASC",
       "DECREASING": "Decreasing DESC",
+      "REPORTS": "Reports",
+      "CATEGORY_REPORT_DESCRIPTION": "Report on the share of expenses in categories",
+      "YEAR_INCOME_EXPENSES_REPORT_DESCRIPTION": "Income and expense report throughout the year",
 
     },
     "pl_pl": {

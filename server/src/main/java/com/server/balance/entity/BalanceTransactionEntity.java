@@ -2,6 +2,7 @@ package com.server.balance.entity;
 
 import com.server.admin.entity.UserEntity;
 import com.server.balance.model.reports.CategoryReportModel;
+import com.server.balance.model.reports.IncomeExpensesYearModel;
 import com.server.shared.entity.CurrencyEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -22,6 +24,12 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @SqlResultSetMapping(name = "CategoryReportModel", classes = {
         @ConstructorResult(targetClass = CategoryReportModel.class,
                 columns = {@ColumnResult(name = "category", type = String.class), @ColumnResult(name = "value", type = Double.class)})
+})
+
+@SqlResultSetMapping(name = "IncomeExpensesYearModel", classes = {
+        @ConstructorResult(targetClass = IncomeExpensesYearModel.class,
+                columns = {@ColumnResult(name = "month", type = Integer.class), @ColumnResult(name = "income", type = Double.class),
+                        @ColumnResult(name = "expenses", type = Double.class)})
 })
 public class BalanceTransactionEntity {
 

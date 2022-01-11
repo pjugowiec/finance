@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/model/reports/category_report_model.dart';
+import 'package:mobile/model/reports/income_expenses_year_model.daty.dart';
 import 'package:mobile/services/auth/auth_service.dart';
 import 'package:mobile/util/alert_util.dart';
 import 'package:mobile/util/localization.dart';
@@ -23,6 +24,25 @@ class ReportRestService {
       final parsed = jsonDecode(utf8.decode(response.bodyBytes)) as List<dynamic>;
 
       return parsed.map((data) => CategoryReportModel.fromJson(data)).toList();
+    } else {
+      AlertUtil.instance.newInfoAlert(
+          'CONNECTION_PROBLEM'.i18n, context, const Duration(seconds: 2));
+      throw Exception('CONNECTION_PROBLEM'.i18n);
+    }
+  }
+
+  static Future<List<IncomeExpensesYearModel>> getIncomeExpensesYear(BuildContext context) async {
+    int year = 2021;
+    final response =
+    await get(RequestUtil.getUri('report/balance/' + year.toString(), {}), headers: {
+      HttpHeaders.contentTypeHeader: 'application/json',
+      AuthService.AUTHORIZATION: AuthService.JWT_TOKEN
+    });
+
+    if (response.statusCode == 200) {
+      final parsed = jsonDecode(utf8.decode(response.bodyBytes)) as List<dynamic>;
+
+      return parsed.map((data) => IncomeExpensesYearModel.fromJson(data)).toList();
     } else {
       AlertUtil.instance.newInfoAlert(
           'CONNECTION_PROBLEM'.i18n, context, const Duration(seconds: 2));

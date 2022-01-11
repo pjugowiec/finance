@@ -1,10 +1,12 @@
 package com.server.balance.controller;
 
 import com.server.balance.model.reports.CategoryReportModel;
+import com.server.balance.model.reports.IncomeExpensesYearModel;
 import com.server.balance.service.ReportService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,6 +24,13 @@ public class ReportController {
     @GetMapping("/category")
     public ResponseEntity<List<CategoryReportModel>> getCategoriesReport(final HttpServletRequest request) {
         final String username = request.getUserPrincipal().getName();
-        return ResponseEntity.ok(reportService.getCategoryReport(username));
+        return ResponseEntity.ok(reportService.getCategoryReportData(username));
+    }
+
+    @GetMapping("/balance/{year}")
+    public ResponseEntity<List<IncomeExpensesYearModel>> getIncomeExpensesReportData(@PathVariable("year") final Integer year,
+                                                                                     final HttpServletRequest request) {
+        final String username = request.getUserPrincipal().getName();
+        return ResponseEntity.ok(reportService.getIncomeExpensesReportData(username, year));
     }
 }
