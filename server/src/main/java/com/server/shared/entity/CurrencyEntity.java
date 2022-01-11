@@ -12,6 +12,7 @@ import java.util.Set;
 public class CurrencyEntity {
 
     public static final Long POLISH_ID = 1L;
+
     @Id
     private Long id;
 

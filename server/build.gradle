@@ -18,6 +18,7 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: Versions.SPRING
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: Versions.SPRING
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: Versions.SPRING
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: Versions.SPRING
 	implementation group: 'com.auth0', name: 'java-jwt', version: Versions.JWT
 	implementation group: 'org.liquibase', name: 'liquibase-core', version: Versions.LIQUID_BASE
 
@@ -40,7 +41,7 @@ test {
 
 
 class Versions {
-	static String SPRING='2.5.6'
+	static String SPRING='2.6.2'
 	static String POSTGRES='42.2.20'
 	static String LOMBOK='1.18.20'
 	static String JWT='3.18.2'

@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changeset/balance_transaction-table.yaml
   - include:
       file: db/changelog/changeset/v0.0.1_change.yaml
+  - include:
+      file: db/changelog/changeset/v0.0.2_param_table.yaml

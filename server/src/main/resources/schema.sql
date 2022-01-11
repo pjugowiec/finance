@@ -16,3 +16,12 @@ BEGIN
                 SELECT * FROM categories WHERE value = categoryName);
 end
 ' LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION add_param(id bigint, paramName varchar(255), paramValue varchar(255), paramDescription varchar(255)) RETURNS VOID as '
+BEGIN
+    INSERT INTO params (id, "name", description, "value")
+        select id, paramName, paramDescription, paramValue
+        WHERE NOT EXISTS (
+                SELECT * FROM params WHERE "name" = paramName);
+end
+' LANGUAGE plpgsql;

@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-param-table
+      author: Patryk Jugowiec
+      changes:
+        - createTable:
+            tableName: params
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: value
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: varchar(255)

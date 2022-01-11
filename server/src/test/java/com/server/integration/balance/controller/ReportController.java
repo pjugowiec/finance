@@ -36,7 +36,7 @@ class ReportController {
                 .then()
                 .assertThat()
                 .statusCode(200)
-                .body("$.size()", is(2));
+                .body("$.size()", is(1));
     }
 
 
