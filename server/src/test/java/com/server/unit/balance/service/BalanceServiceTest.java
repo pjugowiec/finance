@@ -10,7 +10,6 @@ import com.server.balance.repostiory.CategoryRepository;
 import com.server.balance.repostiory.CurrencyRepository;
 import com.server.balance.service.BalanceService;
 import com.server.balance.service.impl.BalanceServiceImpl;
-import com.server.balance.service.impl.CategoryServiceImpl;
 import com.server.shared.entity.CurrencyEntity;
 import com.server.shared.exceptions.ValidationException;
 import com.server.shared.util.CommonErrorMessage;

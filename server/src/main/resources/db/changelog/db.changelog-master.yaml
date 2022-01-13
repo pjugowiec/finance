@@ -1,3 +1,17 @@
 databaseChangeLog:
-  - includeAll:
-      path: db/changelog/changeset/
+  - include:
+      file: /db/changelog/changeset/user-table.yaml
+  - include:
+      file: /db/changelog/changeset/currencies-table.yaml
+  - include:
+      file: /db/changelog/changeset/categories-table.yaml
+  - include:
+      file: /db/changelog/changeset/balance_transaction-table.yaml
+  - include:
+      file: /db/changelog/changeset/v0.0.1_change.yaml
+  - include:
+      file: /db/changelog/changeset/v0.0.2_param_table.yaml
+  - include:
+      file: /db/changelog/changeset/v0.0.3_forgotten_passwords-table.yaml
+  - include:
+      file: /db/changelog/changeset/v0.0.4_isActive_user-table.yaml
