@@ -33,6 +33,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "isActive")
+    private Boolean isActive;
+
     public static UserEntity of(final Long id, final String email, final String password, final Role role) {
         return UserEntity.builder()
                 .id(id)
