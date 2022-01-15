@@ -11,6 +11,7 @@ class RoundedInputField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? keyboardtype;
   final Function validator;
+  final bool validatorRequired;
 
   const RoundedInputField({
     Key? key,
@@ -20,6 +21,7 @@ class RoundedInputField extends StatelessWidget {
     required this.controller,
     this.keyboardtype = TextInputType.text,
     this.validator = basicValidate,
+    this.validatorRequired = true,
   }) : super(key: key);
 
   static String? basicValidate(value) {
@@ -35,12 +37,7 @@ class RoundedInputField extends StatelessWidget {
       color: SECONDARY_COLOR,
       child: TextFormField(
         keyboardType: keyboardtype,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'FILL_THIS_FIELD'.i18n;
-          }
-          return null;
-        },
+        validator: (value) => validatorRequired ? validator(value) : null,
         controller: controller,
         onChanged: onChanged,
         cursorColor: PRIMARY_COLOR,

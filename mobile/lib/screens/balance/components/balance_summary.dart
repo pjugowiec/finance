@@ -18,8 +18,13 @@ class BalanceSummary extends StatefulWidget {
 }
 
 class _BalanceSummaryState extends State<BalanceSummary> {
-  late Future<BalanceSummaryModel> summary =
-      BalanceRestService.getSummary(context);
+  late Future<BalanceSummaryModel> summary;
+
+  @override
+  void initState() {
+    summary =
+        BalanceRestService.getSummary(context);
+  }
 
   @override
   Widget build(BuildContext context) {

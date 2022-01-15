@@ -17,10 +17,13 @@ import java.util.List;
 public interface BalanceTransactionRepository extends JpaRepository<BalanceTransactionEntity, Long> {
 
     @Query(value = "SELECT new com.server.balance.model.BalanceSummary(" +
-            "SUM(e.balance) as balance, " +
+            "SUM( " +
+            "CASE WHEN e.balanceFlow = 'INCOME' THEN e.balance " +
+            "     WHEN e.balanceFlow = 'EXPENSES' THEN -e.balance " +
+            "ELSE 0 END) as balance, " +
             "SUM(case when e.balanceFlow = 'INCOME' then e.balance else 0 end) as income, " +
-            "SUM(case when e.balanceFlow = 'EXPENSES' then e.balance else 0 end) as EXPENSES) " +
-            "from #{#entityName} e " +
+            "SUM(case when e.balanceFlow = 'EXPENSES' then e.balance else 0 end) as expenses " +
+            ") FROM #{#entityName} e " +
             "JOIN e.userEntity u " +
             "WHERE u.email = :username")
     BalanceSummary getSummary(@Param("username") final String username);

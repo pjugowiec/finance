@@ -96,7 +96,7 @@ class BalanceControllerTest {
 
         assertEquals(new BigDecimal("500.23"), summary.income());
         assertEquals(new BigDecimal("400.00"), summary.expenses());
-        assertEquals(new BigDecimal("900.23"), summary.balance());
+        assertEquals(new BigDecimal("100.23"), summary.balance());
     }
 
     @Test

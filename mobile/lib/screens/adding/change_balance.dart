@@ -6,12 +6,13 @@ import 'package:mobile/components/back_bar_navigation.dart';
 import 'package:mobile/model/balance/balance_dto.dart';
 import 'package:mobile/screens/balance/components/balance_summary.dart';
 import 'package:mobile/services/balance/balance_rest_service.dart';
+import 'package:mobile/util/alert_util.dart';
 import 'package:mobile/util/income_util.dart';
 import 'package:mobile/util/localization.dart';
 import 'package:mobile/util/shared_preferences.dart';
 
 import '../../constants.dart';
-import 'components/adding_actions.dart';
+import 'components/change_actions.dart';
 
 class ChangeBalance extends StatefulWidget {
   const ChangeBalance({Key? key, required this.isIncome}) : super(key: key);
@@ -35,7 +36,17 @@ class _ChangeBalanceState extends State<ChangeBalance> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    final String hintText = prefixCurrency + '0.00';
+    final _formKey = GlobalKey<FormState>();
+
     void callback(int categoryId) {
+
+      if (!_formKey.currentState!.validate()) {
+        AlertUtil.showAlertWithDuration(
+            context, 'FIELDS_CAN_NO_BE_EMPTY'.i18n, const Duration(seconds: 2));
+        throw Exception('FIELDS_CAN_NO_BE_EMPTY'.i18n);
+      }
+
       BalanceDto balanceDto = BalanceDto(
           description: descriptionInput.text,
           categoryId: categoryId,
@@ -57,119 +68,128 @@ class _ChangeBalanceState extends State<ChangeBalance> {
           iconColor: Colors.black,
         ),
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 3,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                          text: 'HOW_MUCH'.i18n,
-                          style: const TextStyle(
-                              color: Colors.grey, fontSize: 16)),
-                      const TextSpan(text: '\n'),
-                      const TextSpan(text: '\n'),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 30.0),
-                  child: TextFormField(
-                    textDirection: TextDirection.ltr,
-                    controller: balanceInput,
-                    cursorColor: PRIMARY_COLOR,
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Expanded(
+              flex: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RichText(
                     textAlign: TextAlign.center,
-                    onChanged: (value) => balance = double.parse(value),
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    style: const TextStyle(
-                      fontSize: 26,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                            text: 'HOW_MUCH'.i18n,
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 16)),
+                        const TextSpan(text: '\n'),
+                        const TextSpan(text: '\n'),
+                      ],
                     ),
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      hintText: prefixCurrency + '000',
-                      hintStyle: const TextStyle(
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 30.0),
+                    child: TextFormField(
+                      textDirection: TextDirection.ltr,
+                      controller: balanceInput,
+                      cursorColor: PRIMARY_COLOR,
+                      textAlign: TextAlign.center,
+                      onChanged: (value) => balance = double.parse(value),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      style: const TextStyle(
                         fontSize: 26,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^(\d+)?\.?\d{0,2}')),
+                      ],
+                      decoration: InputDecoration(
+                        floatingLabelBehavior: FloatingLabelBehavior.never,
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        hintText: hintText,
+                        hintStyle: const TextStyle(
+                          fontSize: 26,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(right: 30.0),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: 'CURRENT_BALANCE'.i18n,
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 14)),
-                            const TextSpan(text: '\n'),
-                            const TextSpan(text: '\n'),
-                            TextSpan(
-                                text: BalanceSummary.currentBalance.toString(),
-                                style: const TextStyle(
-                                    color: PRIMARY_COLOR, fontSize: 16)),
-                          ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 30.0),
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: 'CURRENT_BALANCE'.i18n,
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14)),
+                              const TextSpan(text: '\n'),
+                              const TextSpan(text: '\n'),
+                              TextSpan(
+                                  text: IncomeUtil.getFixedStringFromDouble(
+                                      BalanceSummary.currentBalance),
+                                  style: const TextStyle(
+                                      color: PRIMARY_COLOR, fontSize: 16)),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 30.0),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: 'AFTER_CHANGE'.i18n,
-                                style: const TextStyle(
-                                    color: Colors.grey, fontSize: 14)),
-                            const TextSpan(text: '\n'),
-                            const TextSpan(text: '\n'),
-                            TextSpan(
-                                text: widget.isIncome
-                                    ? IncomeUtil.addIncome(balance,
-                                            BalanceSummary.currentBalance)
-                                        .toString()
-                                    : IncomeUtil.addExpenses(
-                                        balance, BalanceSummary.currentBalance),
-                                style: const TextStyle(
-                                    color: PRIMARY_COLOR, fontSize: 16)),
-                          ],
+                      Container(
+                        margin: const EdgeInsets.only(left: 30.0),
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: 'AFTER_CHANGE'.i18n,
+                                  style: const TextStyle(
+                                      color: Colors.grey, fontSize: 14)),
+                              const TextSpan(text: '\n'),
+                              const TextSpan(text: '\n'),
+                              TextSpan(
+                                  text: widget.isIncome
+                                      ? IncomeUtil.addIncome(balance,
+                                              BalanceSummary.currentBalance)
+                                          .toString()
+                                      : IncomeUtil.addExpenses(balance,
+                                          BalanceSummary.currentBalance),
+                                  style: const TextStyle(
+                                      color: PRIMARY_COLOR, fontSize: 16)),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          const Divider(),
-          Expanded(
-            flex: 6,
-            child: AddingActions(
-              callback: callback,
-              dateInput: dateInput,
-              descriptionInput: descriptionInput,
+            const Divider(),
+            Expanded(
+              flex: 6,
+              child: ChangeActions(
+                callback: callback,
+                dateInput: dateInput,
+                descriptionInput: descriptionInput,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

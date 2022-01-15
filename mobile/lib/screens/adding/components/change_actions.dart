@@ -8,14 +8,13 @@ import 'package:mobile/util/localization.dart';
 
 import '../../../constants.dart';
 
-class AddingActions extends StatefulWidget {
-
+class ChangeActions extends StatefulWidget {
   final TextEditingController dateInput;
   final TextEditingController descriptionInput;
   int chosedCategory = 0;
   final Function callback;
 
-   AddingActions(
+  ChangeActions(
       {Key? key,
       required this.dateInput,
       required this.descriptionInput,
@@ -23,10 +22,10 @@ class AddingActions extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => AddingActionsState();
+  State<StatefulWidget> createState() => _ChangeActionsState();
 }
 
-class AddingActionsState extends State<AddingActions> {
+class _ChangeActionsState extends State<ChangeActions> {
   late Future<List<Category>> categories =
       CategoryRestService.getCategories(context);
 
@@ -37,6 +36,7 @@ class AddingActionsState extends State<AddingActions> {
     void callback(var value) {
       widget.chosedCategory = int.parse(value);
     }
+
     return Column(
       children: [
         Container(
@@ -53,6 +53,7 @@ class AddingActionsState extends State<AddingActions> {
           margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
           width: size.width * 0.9,
           child: RoundedInputField(
+            validatorRequired: false,
             hintText: 'DESCRIPTION'.i18n,
             onChanged: (value) => {},
             controller: widget.descriptionInput,
@@ -115,14 +116,21 @@ class CategoryListDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'FILL_THIS_FIELD'.i18n;
+        }
+        return null;
+      },
       dropdownColor: SECONDARY_COLOR,
       hint: Text('CHOOSE_CATEGORY'.i18n),
       iconSize: 24,
       decoration: const InputDecoration(
         prefixIcon: Icon(Icons.category, color: PRIMARY_COLOR),
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: SECONDARY_COLOR),
-        ),
+        border: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        errorBorder: InputBorder.none,
+        focusedErrorBorder: InputBorder.none,
       ),
       style: const TextStyle(color: Colors.black),
       onChanged: (String? newValue) => callback(newValue),
