@@ -35,7 +35,7 @@ class HomeState extends State<Home> {
         ],
         supportedLocales: supportedLocales,
         home: Scaffold(
-          body: isLogged ? const Balance() : const WelcomeScreen(),
+          body: true ? const Balance() : const WelcomeScreen(),
         ),
       ),
     );
