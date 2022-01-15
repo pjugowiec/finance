@@ -61,13 +61,13 @@ class WelcomeScreen extends StatelessWidget {
                     text: "REGISTER".i18n,
                     color: PRIMARY_COLOR,
                     press: () =>
-                        NavigationUtil.pushToNavigator(context, const Register()),
+                        NavigationUtil.pushToNavigator(context, Register()),
                     textColor: Colors.white,
                   ),
                 ),
                 RoundedButton(
                     text: "LOGIN".i18n,
-                    press: () => NavigationUtil.pushToNavigator(context, const Login()),
+                    press: () => NavigationUtil.pushToNavigator(context, Login()),
                     color: SECONDARY_COLOR,
                     textColor: Colors.black),
               ],

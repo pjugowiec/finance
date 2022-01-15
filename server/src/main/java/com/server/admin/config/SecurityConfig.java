@@ -5,7 +5,6 @@ import com.server.admin.config.filter.JwtAuthorizationFilter;
 import com.server.admin.service.SecurityUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(POST, "/register")
+                .antMatchers( "/register", "/password/forgot", "/password/forgot/validate", "/change-password")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -21,7 +21,7 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   final GlobalKey<HomeState> homeKey = GlobalKey();
-  bool isLogged = AuthService.instance.getIsLogged();
+  final bool isLogged = AuthService.instance.getIsLogged();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class HomeState extends State<Home> {
         ],
         supportedLocales: supportedLocales,
         home: Scaffold(
-          body: true ? const Balance() : const WelcomeScreen(),
+          body: isLogged ? const Balance() : const WelcomeScreen(),
         ),
       ),
     );

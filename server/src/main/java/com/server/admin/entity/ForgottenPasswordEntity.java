@@ -1,7 +1,6 @@
 package com.server.admin.entity;
 
-import lombok.Builder;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +9,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "forgotten_passwords")
 @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ForgottenPasswordEntity {
 
     @Id

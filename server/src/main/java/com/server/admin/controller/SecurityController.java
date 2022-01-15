@@ -1,5 +1,6 @@
 package com.server.admin.controller;
 
+import com.server.admin.model.ChangePasswordRequest;
 import com.server.admin.model.ForgotPasswordCode;
 import com.server.admin.model.RegisterRequest;
 import com.server.admin.service.ForgottenPasswordService;
@@ -7,6 +8,7 @@ import com.server.admin.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import javax.validation.Valid;
 
@@ -39,10 +41,15 @@ public class SecurityController {
         return ResponseEntity.accepted().build();
     }
 
-    @GetMapping("/password/forgot/validate")
+    @PostMapping("/password/forgot/validate")
     public ResponseEntity<Void> validateForgotPasswordCode(@RequestBody final ForgotPasswordCode forgotPasswordCode) {
+        forgottenPasswordService.validateCode(forgotPasswordCode);
+        return ResponseEntity.accepted().build();
+    }
 
-
+    @PutMapping("/change-password")
+    public ResponseEntity<Void> changePassword(@RequestBody final ChangePasswordRequest changePasswordRequest){
+        userService.changePassword(changePasswordRequest);
         return ResponseEntity.accepted().build();
     }
 }

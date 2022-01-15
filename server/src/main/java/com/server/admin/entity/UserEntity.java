@@ -2,10 +2,7 @@ package com.server.admin.entity;
 
 import com.server.balance.entity.BalanceTransactionEntity;
 import com.server.balance.entity.CategoryEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,6 +14,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Setter
 public class UserEntity {
 
     @Id

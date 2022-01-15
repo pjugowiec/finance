@@ -1,4 +1,4 @@
 package com.server.admin.model;
 
-public record ForgotPasswordCode(String code, String email) {
+public record ForgotPasswordCode(String code) {
 }

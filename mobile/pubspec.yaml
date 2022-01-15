@@ -27,6 +27,7 @@ dependencies:
   syncfusion_flutter_sliders: ^19.4.40
   pie_chart: ^5.1.0
   fl_chart: ^0.41.0
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   flutter_test:

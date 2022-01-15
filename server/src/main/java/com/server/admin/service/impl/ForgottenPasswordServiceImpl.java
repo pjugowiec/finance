@@ -70,15 +70,16 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
     }
 
     @Override
+    @Transactional
     public void validateCode(final ForgotPasswordCode forgotPasswordCode) {
-        final UserEntity userEntity = userRepository.findByEmail(forgotPasswordCode.email())
-                .orElseThrow(() -> new ValidationException(AdminErrorsMessages.USER_NOT_FOUND.name()));
 
-        final String code = forgottenPasswordRepository.findLastUserCode(userEntity.getId());
+        final ForgottenPasswordEntity entity = forgottenPasswordRepository.findByCode(forgotPasswordCode.code());
 
-        if(!forgotPasswordCode.code().equals(code)) {
+        if(!forgotPasswordCode.code().equals(entity.getCode())) {
             throw new ValidationException(AdminErrorsMessages.WRONG_RESET_PASSWORD_TOKEN.name());
         }
+
+        entity.setValidTo(LocalDateTime.now());
     }
 
 }

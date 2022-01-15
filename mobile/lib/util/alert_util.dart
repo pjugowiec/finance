@@ -10,9 +10,12 @@ class AlertUtil {
 
   static AlertUtil get instance => _instance;
 
-  void newInfoAlert(
-      String message, BuildContext context, Duration duration) {
+  static void showAlertWithDuration(
+      BuildContext context, String text, Duration duration) {
+    AlertUtil.instance.newInfoAlert(text, context, duration);
+  }
 
+  void newInfoAlert(String message, BuildContext context, Duration duration) {
     showFlash(
       context: context,
       duration: duration,

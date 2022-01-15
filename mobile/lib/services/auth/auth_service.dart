@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/components/navigation.dart';
-import 'package:mobile/model/auth/register_user.dart';
 import 'package:mobile/screens/welcome_screen.dart';
 import 'package:mobile/util/alert_util.dart';
 import 'package:mobile/util/localization.dart';
