@@ -43,6 +43,5 @@ class SecurityControllerTest {
 
         assertEquals(202, response.getStatusCode());
         assertEquals(1, userRepository.count());
-
     }
 }

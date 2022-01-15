@@ -2,6 +2,7 @@ package com.server.admin.service.impl;
 
 import com.server.admin.entity.ForgottenPasswordEntity;
 import com.server.admin.entity.UserEntity;
+import com.server.admin.model.ForgotPasswordCode;
 import com.server.admin.repository.ForgottenPasswordRepository;
 import com.server.admin.repository.UserRepository;
 import com.server.admin.service.ForgottenPasswordService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 import static com.server.shared.config.MailerConfig.MAIL_BODY;
@@ -40,11 +42,13 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         final ResourceBundle resourceBundle =
                 ResourceBundleUtil.getResourceBundle("messages.forgotten_password", locale);
 
-        final String code = forgottenPasswordRepository.findMaxCode();
-        final String incrementedCode = incrementCode(code);
+        String generatedCode = generateCode();
+        while(forgottenPasswordRepository.existsByCode(generatedCode)) {
+            generatedCode = generateCode();
+        }
 
         final ForgottenPasswordEntity forgottenPasswordEntity = ForgottenPasswordEntity.builder()
-                .code(incrementedCode)
+                .code(generatedCode)
                 .userEntity(userEntity)
                 .validFrom(LocalDateTime.now())
                 .build();
@@ -54,15 +58,27 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
         final MailModel model = MailModel.builder()
                 .to(email)
                 .title(resourceBundle.getString(MAIL_TITLE))
-                .body(String.format(resourceBundle.getString(MAIL_BODY), incrementedCode))
+                .body(String.format(resourceBundle.getString(MAIL_BODY), generatedCode))
                 .build();
 
         mailService.sendMail(model);
         log.info(String.format("Send mail with code to %s", email));
     }
 
-    private String incrementCode(final String code) {
-        final Integer codeIntValue = Integer.parseInt(code) + 1;
-        return String.valueOf(codeIntValue);
+    private String generateCode() {
+        return String.valueOf(new Random().nextInt(100000) + 10000);
     }
+
+    @Override
+    public void validateCode(final ForgotPasswordCode forgotPasswordCode) {
+        final UserEntity userEntity = userRepository.findByEmail(forgotPasswordCode.email())
+                .orElseThrow(() -> new ValidationException(AdminErrorsMessages.USER_NOT_FOUND.name()));
+
+        final String code = forgottenPasswordRepository.findLastUserCode(userEntity.getId());
+
+        if(!forgotPasswordCode.code().equals(code)) {
+            throw new ValidationException(AdminErrorsMessages.WRONG_RESET_PASSWORD_TOKEN.name());
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.server.admin.controller;
 
+import com.server.admin.model.ForgotPasswordCode;
 import com.server.admin.model.RegisterRequest;
 import com.server.admin.service.ForgottenPasswordService;
 import com.server.admin.service.UserService;
@@ -35,6 +36,13 @@ public class SecurityController {
 
         final Locale locale = getLocale(lang);
         forgottenPasswordService.generateSendCode(email, locale);
+        return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping("/password/forgot/validate")
+    public ResponseEntity<Void> validateForgotPasswordCode(@RequestBody final ForgotPasswordCode forgotPasswordCode) {
+
+
         return ResponseEntity.accepted().build();
     }
 }
