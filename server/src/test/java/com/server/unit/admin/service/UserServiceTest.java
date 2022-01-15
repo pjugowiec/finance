@@ -1,7 +1,8 @@
-package com.server.unit.admin.serivce;
+package com.server.unit.admin.service;
 
 import com.server.admin.entity.Role;
 import com.server.admin.entity.UserEntity;
+import com.server.admin.model.ChangePasswordRequest;
 import com.server.admin.model.RegisterRequest;
 import com.server.admin.repository.UserRepository;
 import com.server.admin.service.UserService;
@@ -68,4 +69,31 @@ class UserServiceTest {
 
         assertDoesNotThrow(() -> userService.create(new RegisterRequest(EMAIL, PASSWORD)));
     }
+
+    @Test
+    void findByEmail_ShouldThrowException() {
+        Mockito.when(userRepository.findByEmail(any()))
+                .thenReturn(Optional.empty());
+
+        ValidationException result = assertThrows(ValidationException.class, () -> userService.findByEmail("TEST"));
+
+        assertEquals(AdminErrorsMessages.USER_NOT_FOUND.name(), result.getMessage());
+    }
+
+    @Test
+    void findByEmail_ShouldDoesNotThrow() {
+        Mockito.when(userRepository.findByEmail(any()))
+                .thenReturn(Optional.of(new UserEntity()));
+
+        assertDoesNotThrow(() -> userService.findByEmail("TEST"));
+    }
+
+    @Test
+    void changePassword_ShouldDoesNotThrow() {
+        Mockito.when(userRepository.findByEmail(any()))
+                .thenReturn(Optional.of(new UserEntity()));
+
+        assertDoesNotThrow(() -> userService.changePassword(new ChangePasswordRequest("test", "test")));
+    }
+
 }

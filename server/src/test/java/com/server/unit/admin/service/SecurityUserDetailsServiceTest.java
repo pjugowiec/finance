@@ -1,4 +1,4 @@
-package com.server.unit.admin.serivce;
+package com.server.unit.admin.service;
 
 import com.server.admin.entity.UserEntity;
 import com.server.admin.entity.Role;

@@ -6,10 +6,11 @@ import com.server.admin.model.ForgotPasswordCode;
 import com.server.admin.repository.ForgottenPasswordRepository;
 import com.server.admin.repository.UserRepository;
 import com.server.admin.service.ForgottenPasswordService;
+import com.server.admin.service.UserService;
 import com.server.admin.util.AdminErrorsMessages;
 import com.server.shared.exceptions.ValidationException;
 import com.server.shared.model.MailModel;
-import com.server.shared.service.impl.MailServiceImpl;
+import com.server.shared.service.MailService;
 import com.server.shared.util.ResourceBundleUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,14 +31,14 @@ import static com.server.shared.config.MailerConfig.MAIL_TITLE;
 public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
 
     private final ForgottenPasswordRepository forgottenPasswordRepository;
-    private final UserRepository userRepository;
-    private final MailServiceImpl mailService;
+    private final UserService userService;
+    private final MailService mailService;
 
     @Override
     @Transactional
     public void generateSendCode(final String email, final Locale locale) {
-        final UserEntity userEntity = userRepository.findByEmail(email)
-                .orElseThrow(() -> new ValidationException(AdminErrorsMessages.USER_NOT_FOUND.name()));
+
+        final UserEntity userEntity = userService.findByEmail(email);
 
         final ResourceBundle resourceBundle =
                 ResourceBundleUtil.getResourceBundle("messages.forgotten_password", locale);

@@ -44,4 +44,10 @@ public class UserServiceImpl implements UserService {
 
         userEntity.setPassword(passwordEncoder.encode(changePasswordRequest.newPassword()));
     }
+
+    @Override
+    public UserEntity findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ValidationException(AdminErrorsMessages.USER_NOT_FOUND.name()));
+    }
 }
