@@ -8,6 +8,8 @@ import 'package:mobile/util/date_util.dart';
 import 'package:mobile/util/shared_preferences.dart';
 import 'package:mobile/util/sort_util.dart';
 
+import 'loader_round.dart';
+
 class TransactionListView extends StatefulWidget {
   final TransactionsRequest request;
   final bool filterChanged;
@@ -45,9 +47,9 @@ class TransactionListViewState extends State<TransactionListView> {
               itemBuilder: (context, index) =>
                   TransactionView(transaction: transactions.data![index]));
         } else if (transactions.hasError) {
-          return Container();
+          return LoaderRound();
         }
-        return const CircularProgressIndicator();
+        return LoaderRound();
       },
     );
   }

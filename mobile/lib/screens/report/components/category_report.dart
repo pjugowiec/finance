@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:mobile/components/loader_round.dart';
 import 'package:mobile/components/report_component.dart';
 import 'package:mobile/model/reports/category_report_model.dart';
 import 'package:mobile/services/reports/report_rest_service.dart';
@@ -59,7 +60,7 @@ class _CategoryReportState extends State<CategoryReport> {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return const LoaderRound();
         }
       },
     );

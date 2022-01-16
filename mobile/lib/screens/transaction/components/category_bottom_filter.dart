@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/loader_round.dart';
 import 'package:mobile/model/balance/category.dart';
 import 'package:mobile/services/balance/category_rest_service.dart';
 
@@ -71,9 +72,9 @@ class _CategoryBottomFilterState extends State<CategoryBottomFilter> {
               },
             );
           } else if (snapshot.hasError) {
-            return Container();
+            return const LoaderRound();
           }
-          return const CircularProgressIndicator();
+          return const LoaderRound();
         },
       ),
     );

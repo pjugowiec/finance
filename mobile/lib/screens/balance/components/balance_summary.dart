@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/app_icons.dart';
+import 'package:mobile/components/loader_round.dart';
 import 'package:mobile/model/balance/balance_summary.dart';
 import 'package:mobile/services/balance/balance_rest_service.dart';
 import 'package:mobile/util/localization.dart';
@@ -55,7 +56,7 @@ class _BalanceSummaryState extends State<BalanceSummary> {
                   } else if (snapshot.hasError) {
                     return const ConditionBalance(income: 0, expenses: 0);
                   }
-                  return const CircularProgressIndicator();
+                  return const LoaderRound();
                 },
               ),
             ),
@@ -71,9 +72,9 @@ class _BalanceSummaryState extends State<BalanceSummary> {
                       return BalanceSummaryText(
                           balance: snapshot.data!.balance);
                     } else if (snapshot.hasError) {
-                      return const BalanceSummaryText(balance: 0);
+                      return const LoaderRound();
                     }
-                    return const CircularProgressIndicator();
+                    return const LoaderRound();
                   },
                 ),
               ),
@@ -93,10 +94,9 @@ class _BalanceSummaryState extends State<BalanceSummary> {
                           expenses: snapshot.data!.expenses,
                           income: snapshot.data!.income);
                     } else if (snapshot.hasError) {
-                      return const IncomeExpensesButtons(
-                          expenses: 0, income: 0);
+                      return const LoaderRound();
                     }
-                    return const CircularProgressIndicator();
+                    return const LoaderRound();
                   },
                 ),
               ),

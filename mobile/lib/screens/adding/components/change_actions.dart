@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/date_select.dart';
+import 'package:mobile/components/loader_round.dart';
 import 'package:mobile/components/rounded_button.dart';
 import 'package:mobile/components/rounded_input.dart';
 import 'package:mobile/model/balance/category.dart';
@@ -84,7 +85,7 @@ class _ChangeActionsState extends State<ChangeActions> {
                       categories: const [],
                     );
                   }
-                  return const CircularProgressIndicator();
+                  return const LoaderRound();
                 }),
           ),
         ),
