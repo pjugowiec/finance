@@ -14,10 +14,15 @@ import com.server.shared.service.MailService;
 import com.server.shared.util.ResourceBundleUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
+import java.time.temporal.TemporalUnit;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -44,7 +49,7 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
                 ResourceBundleUtil.getResourceBundle("messages.forgotten_password", locale);
 
         String generatedCode = generateCode();
-        while(forgottenPasswordRepository.existsByCode(generatedCode)) {
+        while (forgottenPasswordRepository.existsByCode(generatedCode)) {
             generatedCode = generateCode();
         }
 
@@ -76,11 +81,20 @@ public class ForgottenPasswordServiceImpl implements ForgottenPasswordService {
 
         final ForgottenPasswordEntity entity = forgottenPasswordRepository.findByCode(forgotPasswordCode.code());
 
-        if(!forgotPasswordCode.code().equals(entity.getCode())) {
+        if (!forgotPasswordCode.code().equals(entity.getCode())) {
             throw new ValidationException(AdminErrorsMessages.WRONG_RESET_PASSWORD_TOKEN.name());
         }
 
         entity.setValidTo(LocalDateTime.now());
+    }
+
+    @Scheduled(cron = "0 0/15 * * * *")
+    @Transactional
+    public void expireCodeOlderThan() {
+        final LocalDateTime olderThan = LocalDateTime.now().minus(15, ChronoUnit.MINUTES);
+
+        List<ForgottenPasswordEntity> collectionOfOldersThan = forgottenPasswordRepository.findAllOlderThan15Minutes(olderThan);
+        collectionOfOldersThan.forEach(v -> v.setValidTo(LocalDateTime.now()));
     }
 
 }

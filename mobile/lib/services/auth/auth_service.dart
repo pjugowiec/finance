@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobile/components/navigation.dart';
+import 'package:mobile/screens/balance/balance_screen.dart';
 import 'package:mobile/screens/welcome_screen.dart';
 import 'package:mobile/util/alert_util.dart';
 import 'package:mobile/util/localization.dart';
@@ -65,7 +66,7 @@ class AuthService {
           JWT_TOKEN = responseMap[AUTHORIZATION]!;
           setIsLogged(true);
 
-          NavigationUtil.pushToNavigator(context, const Home());
+          NavigationUtil.pushToNavigator(context, const Balance());
         } else {
           AlertUtil.instance.newInfoAlert(
               "CONNECTION_PROBLEM".i18n, context, const Duration(seconds: 2));
